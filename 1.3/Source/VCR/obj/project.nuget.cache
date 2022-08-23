@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "IZ4ZOUNoVvRtotCLTFPtVrVAv/1vzQ6Z3fnoUHAZ7tmy9uZdJnBhtNl1Rz7m62MDJ8TzE5xIsQkFnrlwsGSYfg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Donald Karasz\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Rebalanced\\1.3\\Source\\VCR\\VCR.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Donald Karasz\\.nuget\\packages\\krafs.rimworld.ref\\1.3.3389\\krafs.rimworld.ref.1.3.3389.nupkg.sha512",
+    "C:\\Users\\Donald Karasz\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512"
+  ],
+  "logs": []
+}
