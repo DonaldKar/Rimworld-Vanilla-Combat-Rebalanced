@@ -51,13 +51,15 @@ namespace VCR
     }
     public class VanillaCombatSettings : ModSettings
     {
-        public static bool AdvancedArmor = false;
-        public static bool AdvancedAccuracy = false;
+        public bool AdvancedArmor = false;
+        public bool AdvancedAccuracy = false;
+        public float AccuracyScale = 1;
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor", false, true);
             Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false, true);
+            Scribe_Values.Look(ref AccuracyScale,"AccuracyScale", 1, true);
         }
         public void DoSettingsWindowContents(Rect inRect)
         {
@@ -70,12 +72,17 @@ namespace VCR
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.AdvanceAccuracy".Translate(), ref AdvancedAccuracy, "VCR.AAcctooltip".Translate());
             listingStandard.GapLine();
+            listingStandard.Label("VCR.AccuracyScale".Translate(AccuracyScale));
+            string temp= "";
+            listingStandard.TextFieldNumericLabeled("VCR.AccScaleTooltip".Translate(AccuracyScale), ref AccuracyScale, ref temp, 1, 60);
+            AccuracyScale = listingStandard.Slider(AccuracyScale, 1, 60);
             listingStandard.End();
         }
         public void ApplySettings()
         {
             ArmorUtility_ApplyArmor_Patch.AArmor = AdvancedArmor;
             ShotReport_HitReportFor_Patch.AAccuracy = AdvancedAccuracy;
+            ShotReport_HitReportFor_Patch.AccScale = AccuracyScale;
         }
     }
     //advanced armor patches
@@ -117,6 +124,7 @@ namespace VCR
     public static class ShotReport_HitReportFor_Patch
     {
         public static bool AAccuracy;
+        public static float AccScale;
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             MethodBase from = AccessTools.Method(typeof(VerbProperties), "GetHitChanceFactor");
@@ -141,7 +149,7 @@ namespace VCR
         {
             if (AAccuracy)
             {
-                float shootstat = Mathf.Max(1, (caster is Pawn) ? caster.GetStatValue(StatDefOf.ShootingAccuracyPawn, false): caster.GetStatValue(StatDefOf.ShootingAccuracyTurret,false));//StatDefOf.ShootingAccuracyPawn.Worker.GetValue(StatRequest.For(caster), false) : StatDefOf.ShootingAccuracyTurret.Worker.GetValue(StatRequest.For(caster), false)
+                float shootstat = Mathf.Max(1, ((caster is Pawn) ? StatDefOf.ShootingAccuracyPawn.Worker.GetValue(StatRequest.For(caster), false) : StatDefOf.ShootingAccuracyTurret.Worker.GetValue(StatRequest.For(caster), false))/AccScale);//caster.GetStatValue(StatDefOf.ShootingAccuracyPawn, false): caster.GetStatValue(StatDefOf.ShootingAccuracyTurret,false));
                 factor = Mathf.Pow(factor, 1 / shootstat);
             }
             return factor;

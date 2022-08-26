@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+	<!--gloves and boots patcher-->
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef/apparel/bodyPartGroups/li[.="Hands"]</xpath>
+		<match Class="PatchOperationConditional">
+			<xpath>/Defs/ThingDef/apparel/bodyPartGroups/li[.="Arms"]</xpath>
+			<nomatch Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef/apparel/wornGraphicPath</xpath>
+				<nomatch Class="PatchOperationReplace">
+					<xpath>/Defs/ThingDef/apparel/layers</xpath>
+					<value>
+						<layers>
+							<li>Overhead</li>
+						</layers>
+					</value>
+				</nomatch>
+			</nomatch>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef/apparel/bodyPartGroups/li[.="Feet"]</xpath>
+		<match Class="PatchOperationConditional">
+			<xpath>/Defs/ThingDef/apparel/bodyPartGroups/li[.="Legs"]</xpath>
+			<nomatch Class="PatchOperationConditional">
+				<xpath>/Defs/ThingDef/apparel/wornGraphicPath</xpath>
+				<nomatch Class="PatchOperationReplace">
+					<xpath>/Defs/ThingDef/apparel/layers</xpath>
+					<value>
+						<layers>
+							<li>Overhead</li>
+						</layers>
+					</value>
+				</nomatch>
+			</nomatch>
+		</match>
+	</Operation>
+	<!--body patcher-->
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef//groups/li[.="Hands"]</xpath>
+		<match Class="PatchOperationInsert">
+			<xpath>/Defs/BodyDef//groups/li[.="Hands"]</xpath>
+			<value>
+				<li>Arms</li>
+			</value>
+		</match>
+	</Operation>
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef//groups/li[.="Feet"]</xpath>
+		<match Class="PatchOperationInsert">
+			<xpath>/Defs/BodyDef//groups/li[.="Feet"]</xpath>
+			<value>
+				<li>Legs</li>
+			</value>
+		</match>
+	</Operation>
+	
+</Patch>

@@ -5,5 +5,7 @@
 	<VCR.AdvanceArmor>Enable advanced armor behavior</VCR.AdvanceArmor>
 	<VCR.AAtooltip>Armor effectiveness is doubled and armor penetration of weapons is quadrupled\n\nThis means that 100% armor will block any attacks with no armor penetration, the equivalent of wearing 200% armor protection in vanilla.\nArmor penetration of weapons has been effectively doubled relative to the displayed armor values\n\nExample:\n50% armor penetration bullet against 200% sharp protection armor\nVanilla: armor is reduced to 150%, damage is halved 25% of the time, blocked 75% of the time.\nAdvanced Armor: armor is reduced to 100%, damage is blocked 100% of the time.</VCR.AAtooltip>
 	<VCR.AdvanceAccuracy>Enable advanced accuracy calculations (do not use, not functional yet)</VCR.AdvanceAccuracy>
-	<VCR.AAcctooltip>Shooter Skill now affects weapon and weather accuracy, a good shooter should be able to overcome any problems with a gun or weather condition, smoke and cover accuracy is not changed.</VCR.AAcctooltip>
+	<VCR.AAcctooltip>Shooter Skill now affects weapon and weather accuracy, a good shooter should be able to overcome any problems with a gun or weather condition. Turret, smoke, and cover accuracy are not affected.</VCR.AAcctooltip>
+	<VCR.AccuracyScale>Accuracy Bonus Scaling</VCR.AccuracyScale>
+	<VCR.AccScaleTooltip>The minimum accuracy skill after capacity and gear offsets and associated scaling (higher numbers mean lower scaling per skill point)\nRecommended accuracy: 5</VCR.AccScaleTooltip>
 </LanguageData>
