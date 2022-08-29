@@ -13,6 +13,7 @@ using Verse.AI.Group;
 using static Verse.DamageWorker;
 using MonoMod.Utils;
 using Verse.Sound;
+using System.Xml;
 
 namespace VCR
 {
@@ -24,6 +25,13 @@ namespace VCR
 
             //Harmony.DEBUG = true;
             new Harmony("VCR.Mod").PatchAll();
+            ApplySettings();
+        }
+        public static void ApplySettings()
+        {
+            ArmorUtility_ApplyArmor_Patch.AArmor = VanillaCombatMod.settings.AdvancedArmor;
+            ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
+            ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
         }
     }
     //settings
@@ -46,20 +54,22 @@ namespace VCR
         public override void WriteSettings()
         {
             base.WriteSettings();
-            settings.ApplySettings();
+            VCR.ApplySettings();
         }
     }
     public class VanillaCombatSettings : ModSettings
     {
         public bool AdvancedArmor = false;
         public bool AdvancedAccuracy = false;
-        public float AccuracyScale = 1;
+        public float AccuracyScale = 5;
+        public bool HandFeetPatch = false;
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor", false, true);
-            Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false, true);
-            Scribe_Values.Look(ref AccuracyScale,"AccuracyScale", 1, true);
+            Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor");
+            Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy");
+            Scribe_Values.Look(ref AccuracyScale,"AccuracyScale");
+            Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch");
         }
         public void DoSettingsWindowContents(Rect inRect)
         {
@@ -72,19 +82,51 @@ namespace VCR
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.AdvanceAccuracy".Translate(), ref AdvancedAccuracy, "VCR.AAcctooltip".Translate());
             listingStandard.GapLine();
-            listingStandard.Label("VCR.AccuracyScale".Translate(AccuracyScale));
-            string temp= "";
-            listingStandard.TextFieldNumericLabeled("VCR.AccScaleTooltip".Translate(AccuracyScale), ref AccuracyScale, ref temp, 1, 60);
-            AccuracyScale = listingStandard.Slider(AccuracyScale, 1, 60);
+            var value = AccuracyScale;
+            //listingStandard.TextFieldNumericLabeled("VCR.AccScaleTooltip".Translate(value), ref value, value.ToString(), 1, 60);
+            listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value), ref value, value.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
+            AccuracyScale = value;
+            listingStandard.GapLine();
+            listingStandard.CheckboxLabeled("VCR.HandFeetPatch".Translate(), ref HandFeetPatch, "VCR.HandFeetTooltip".Translate());
             listingStandard.End();
         }
-        public void ApplySettings()
+    }
+
+    public class PatchOperationXmlSetting : PatchOperation
+    {
+        private string setting;
+
+        private PatchOperation match;
+
+        private PatchOperation nomatch;
+
+        protected override bool ApplyWorker(XmlDocument xml)
         {
-            ArmorUtility_ApplyArmor_Patch.AArmor = AdvancedArmor;
-            ShotReport_HitReportFor_Patch.AAccuracy = AdvancedAccuracy;
-            ShotReport_HitReportFor_Patch.AccScale = AccuracyScale;
+            if (true)
+            {
+                if (match != null)
+                {
+                    return match.Apply(xml);
+                }
+            }
+            else if (nomatch != null)
+            {
+                return nomatch.Apply(xml);
+            }
+            if (match == null)
+            {
+                return nomatch != null;
+            }
+            return true;
+        }
+        public override string ToString()
+        {
+            return $"{base.ToString()}({setting})";
         }
     }
+
+
+
     //advanced armor patches
     [HarmonyPatch(typeof(ArmorUtility), "ApplyArmor")]
     public static class ArmorUtility_ApplyArmor_Patch
