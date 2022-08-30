@@ -25,13 +25,23 @@ namespace VCR
 
             //Harmony.DEBUG = true;
             new Harmony("VCR.Mod").PatchAll();
+            SetXmlSettings();
             ApplySettings();
+        }
+        public static List<string> XmlSettings = new List<string>();
+        public static void SetXmlSettings()
+        {
+            if (VanillaCombatMod.settings.HandFeetPatch)
+            {
+                XmlSettings.Add("HandFeetPatch");
+            }
         }
         public static void ApplySettings()
         {
             ArmorUtility_ApplyArmor_Patch.AArmor = VanillaCombatMod.settings.AdvancedArmor;
             ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
             ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
+
         }
     }
     //settings
@@ -83,7 +93,6 @@ namespace VCR
             listingStandard.CheckboxLabeled("VCR.AdvanceAccuracy".Translate(), ref AdvancedAccuracy, "VCR.AAcctooltip".Translate());
             listingStandard.GapLine();
             var value = AccuracyScale;
-            //listingStandard.TextFieldNumericLabeled("VCR.AccScaleTooltip".Translate(value), ref value, value.ToString(), 1, 60);
             listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value), ref value, value.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
             AccuracyScale = value;
             listingStandard.GapLine();
@@ -95,14 +104,14 @@ namespace VCR
     public class PatchOperationXmlSetting : PatchOperation
     {
         private string setting;
-
+        
         private PatchOperation match;
 
         private PatchOperation nomatch;
 
         protected override bool ApplyWorker(XmlDocument xml)
         {
-            if (true)
+            if (VCR.XmlSettings.Contains(setting))
             {
                 if (match != null)
                 {
