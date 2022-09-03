@@ -41,7 +41,7 @@ namespace VCR
             ArmorUtility_ApplyArmor_Patch.AArmor = VanillaCombatMod.settings.AdvancedArmor;
             ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
             ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
-
+            DamageWorker_Bullet.active = VanillaCombatMod.settings.BulletsWorker;
         }
     }
     //settings
@@ -73,6 +73,7 @@ namespace VCR
         public bool AdvancedAccuracy = false;
         public float AccuracyScale = 5;
         public bool HandFeetPatch = false;
+        public bool BulletsWorker = false;
         public override void ExposeData()
         {
             base.ExposeData();
@@ -80,6 +81,7 @@ namespace VCR
             Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy");
             Scribe_Values.Look(ref AccuracyScale,"AccuracyScale");
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch");
+            Scribe_Values.Look(ref BulletsWorker, "BulletsWorker");
         }
         public void DoSettingsWindowContents(Rect inRect)
         {
@@ -97,6 +99,8 @@ namespace VCR
             AccuracyScale = value;
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.HandFeetPatch".Translate(), ref HandFeetPatch, "VCR.HandFeetTooltip".Translate());
+            listingStandard.GapLine();
+            listingStandard.CheckboxLabeled("VCR.BulletsWorker".Translate(), ref BulletsWorker, "VCR.BWorkerTooltip".Translate());
             listingStandard.End();
         }
     }
