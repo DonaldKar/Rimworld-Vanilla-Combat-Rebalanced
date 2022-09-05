@@ -30,17 +30,20 @@ namespace VCR
 
 		protected override void ApplySpecialEffectsToPart(Pawn pawn, float totalDamage, DamageInfo dinfo, DamageResult result)
 		{
-			base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
 			if (!active)
             {
+				base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
 				return;
             }
-			float stoppingPower = (float)(dinfo.Weapon?.projectile.StoppingPower ?? dinfo.Def.defaultStoppingPower);
-			if (stoppingPower <= 0.5)
+			totalDamage /= 2;
+			base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
+			float stoppingPower = (float)(dinfo.Weapon?.Verbs[0]?.defaultProjectile?.projectile?.stoppingPower ?? dinfo.Def.defaultStoppingPower);
+			List<BodyPartRecord> list = new List<BodyPartRecord>();
+			int num = 0;
+			if (stoppingPower < 1.0)
             {
-				int num = ((def.cutExtraTargetsCurve != null) ? GenMath.RoundRandom(def.cutExtraTargetsCurve.Evaluate(Rand.Value)) : 0);
-				List<BodyPartRecord> list2 = null;
-				if (num != 0)
+				int num2 = ((def.cutExtraTargetsCurve != null) ? GenMath.RoundRandom(def.cutExtraTargetsCurve.Evaluate(Rand.Value)) : 0);
+				if (num2 != 0)
 				{
 					IEnumerable<BodyPartRecord> enumerable = dinfo.HitPart.GetDirectChildParts();
 					if (dinfo.HitPart.parent != null)
@@ -51,46 +54,47 @@ namespace VCR
 							enumerable = enumerable.Concat(dinfo.HitPart.parent.GetDirectChildParts());
 						}
 					}
-					list2 = (from x in enumerable.Except(dinfo.HitPart).InRandomOrder().Take(num)
+					list = (from x in enumerable.Except(dinfo.HitPart).InRandomOrder().Take(num2)
 							 where !x.def.conceptual
 							 select x).ToList();
 				}
+			}
+			else
+            {
+				totalDamage *= stoppingPower;
+				if(stoppingPower <= 1.5)
+                {
+					for (BodyPartRecord bodyPartRecord = dinfo.HitPart; bodyPartRecord != null; bodyPartRecord = bodyPartRecord.parent)
+					{
+						list.Add(bodyPartRecord);
+						if (bodyPartRecord.depth == BodyPartDepth.Outside)
+						{
+							break;
+						}
+					}
+					totalDamage *= list.Count;
+				}
+			}
+			if (!list.Contains(dinfo.HitPart))
+            {
+				list.Add(dinfo.HitPart);
+            }
+			num = list.Count;
+			totalDamage /= num;
+			for (int j = 0; j < num; j++)
+			{
+				DamageInfo dinfo3 = dinfo;
+				dinfo3.SetHitPart(list[j]);
+				if (dinfo3.HitPart.depth == BodyPartDepth.Outside)
+				{
+					base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo3, result);
+				}
 				else
 				{
-					list2 = new List<BodyPartRecord>();
-				}
-				list2.Add(dinfo.HitPart);
-				int num2= list2.Count;
-				for (int j = 0; j < num2; j++)
-				{
-					DamageInfo dinfo3 = dinfo;
-					dinfo3.SetHitPart(list2[j]);
-					FinalizeAndAddInjury(pawn, totalDamage/num2, dinfo3, result);
-				}
-				return;
-			}
-
-
-
-
-			totalDamage = ReduceDamageToPreserveOutsideParts(totalDamage, dinfo, pawn);
-			List<BodyPartRecord> list = new List<BodyPartRecord>();
-			for (BodyPartRecord bodyPartRecord = dinfo.HitPart; bodyPartRecord != null; bodyPartRecord = bodyPartRecord.parent)
-			{
-				list.Add(bodyPartRecord);
-				if (bodyPartRecord.depth == BodyPartDepth.Outside)
-				{
-					break;
+					FinalizeAndAddInjury(pawn, totalDamage, dinfo3, result);
 				}
 			}
-			for (int i = 0; i < list.Count; i++)
-			{
-				BodyPartRecord bodyPartRecord2 = list[i];
-				float totalDamage2 = ((list.Count != 1) ? ((bodyPartRecord2.depth == BodyPartDepth.Outside) ? (totalDamage * 0.75f) : (totalDamage * 0.4f)) : totalDamage);
-				DamageInfo dinfo2 = dinfo;
-				dinfo2.SetHitPart(bodyPartRecord2);
-				FinalizeAndAddInjury(pawn, totalDamage2, dinfo2, result);
-			}
+			return;
 		}
 	}
 

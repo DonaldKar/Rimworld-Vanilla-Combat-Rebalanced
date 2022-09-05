@@ -8,4 +8,14 @@
 	<VCR.AAcctooltip>Shooter Skill now affects weapon and weather accuracy, a good shooter should be able to overcome any problems with a gun or weather condition. Turret, smoke, and cover accuracy are not affected.</VCR.AAcctooltip>
 	<VCR.AccuracyScale>Accuracy Bonus Scaling: {0}</VCR.AccuracyScale>
 	<VCR.AccScaleTooltip>Minimum accuracy before advanced accuracy calculations are activated, inversely related to accuracy per point\n\nWith a higher threshold, each point above the threshold has a smaller effect than with a lower threshold\n\nRecommended accuracy: 5</VCR.AccScaleTooltip>
+
+	<VCR.BulletsWorker>Custom Bullet Damage Worker</VCR.BulletsWorker>
+	<VCR.BWorkerTooltip>Bullets now have simulated fragmentation, pass through, and mushrooming damage behaviors based on the stopping power of the weapon, multiple projectiles on the same weapon will use the stopping power value of the first projectile.</VCR.BWorkerTooltip>
+	<VCR.ArrowsWorker>Custom Arrow Damage Worker</VCR.ArrowsWorker>
+	<VCR.AWorkerTooltip>Not yet implemented</VCR.AWorkerTooltip>
+	
+	<VCR.XmlSettings>Xml Settings: Need a restart to take effect</VCR.XmlSettings>
+	<VCR.HandFeetPatch>Cover Hands and Feet</VCR.HandFeetPatch>
+	<VCR.HandFeetTooltip>Armor and apparel cover the hands and feet of a pawn, gloves or boots are moved to the headgear layer and can be equipped along with normal armor.</VCR.HandFeetTooltip>
+
 </LanguageData>

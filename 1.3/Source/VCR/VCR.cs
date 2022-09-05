@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse.AI.Group;
-using static Verse.DamageWorker;
 using MonoMod.Utils;
 using Verse.Sound;
 using System.Xml;
@@ -42,6 +41,8 @@ namespace VCR
             ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
             ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
             DamageWorker_Bullet.active = VanillaCombatMod.settings.BulletsWorker;
+            DamageWorker_Arrow.active = VanillaCombatMod.settings.ArrowsWorker;
+
         }
     }
     //settings
@@ -74,6 +75,7 @@ namespace VCR
         public float AccuracyScale = 5;
         public bool HandFeetPatch = false;
         public bool BulletsWorker = false;
+        public bool ArrowsWorker = false;
         public override void ExposeData()
         {
             base.ExposeData();
@@ -82,6 +84,7 @@ namespace VCR
             Scribe_Values.Look(ref AccuracyScale,"AccuracyScale");
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch");
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker");
+            Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker");
         }
         public void DoSettingsWindowContents(Rect inRect)
         {
@@ -98,9 +101,15 @@ namespace VCR
             listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value), ref value, value.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
             AccuracyScale = value;
             listingStandard.GapLine();
-            listingStandard.CheckboxLabeled("VCR.HandFeetPatch".Translate(), ref HandFeetPatch, "VCR.HandFeetTooltip".Translate());
-            listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.BulletsWorker".Translate(), ref BulletsWorker, "VCR.BWorkerTooltip".Translate());
+            listingStandard.GapLine();
+            listingStandard.CheckboxLabeled("VCR.ArrowsWorker".Translate(), ref ArrowsWorker, "VCR.AWorkerTooltip".Translate());
+            listingStandard.GapLine();
+            listingStandard.GapLine();
+            listingStandard.Label("VCR.XmlSettings".Translate());
+            listingStandard.GapLine();
+            listingStandard.CheckboxLabeled("VCR.HandFeetPatch".Translate(), ref HandFeetPatch, "VCR.HandFeetTooltip".Translate());
+
             listingStandard.End();
         }
     }
