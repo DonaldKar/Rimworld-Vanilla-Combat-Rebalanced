@@ -3,3 +3,8 @@ C:\Users\Donald Karasz\Documents\GitHub\Rimworld-Vanilla-Combat-Rebalanced\1.3\S
 C:\Users\Donald Karasz\Documents\GitHub\Rimworld-Vanilla-Combat-Rebalanced\1.3\Source\VCR\obj\Debug\VCR.csproj.CopyComplete
 C:\Users\Donald Karasz\Documents\GitHub\Rimworld-Vanilla-Combat-Rebalanced\1.3\Assemblies\VanillaCombatRebalanced.dll
 C:\Users\Donald Karasz\Documents\GitHub\Rimworld-Vanilla-Combat-Rebalanced\1.3\Source\VCR\obj\Debug\VanillaCombatRebalanced.dll
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.3\Assemblies\VanillaCombatReloaded.dll
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.3\Source\VCR\obj\Debug\VCR.csproj.AssemblyReference.cache
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.3\Source\VCR\obj\Debug\VCR.csproj.CoreCompileInputs.cache
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.3\Source\VCR\obj\Debug\VCR.csproj.CopyComplete
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.3\Source\VCR\obj\Debug\VanillaCombatReloaded.dll

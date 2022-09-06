@@ -7,8 +7,8 @@
     <ProjectGuid>{06C33236-3E25-42B0-B5F4-E22BC46B4E7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MT</RootNamespace>
-    <AssemblyName>VanillaCombatRebalanced</AssemblyName>
+    <RootNamespace>VCR</RootNamespace>
+    <AssemblyName>VanillaCombatReloaded</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

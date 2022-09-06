@@ -513,20 +513,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Donald Karasz\\.nuget\\packages\\": {}
+    "C:\\Users\\karasd3\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Donald Karasz\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Rebalanced\\1.3\\Source\\VCR\\VCR.csproj",
-      "projectName": "VanillaCombatRebalanced",
-      "projectPath": "C:\\Users\\Donald Karasz\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Rebalanced\\1.3\\Source\\VCR\\VCR.csproj",
-      "packagesPath": "C:\\Users\\Donald Karasz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Donald Karasz\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Rebalanced\\1.3\\Source\\VCR\\obj\\",
+      "projectUniqueName": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.3\\Source\\VCR\\VCR.csproj",
+      "projectName": "VanillaCombatReloaded",
+      "projectPath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.3\\Source\\VCR\\VCR.csproj",
+      "packagesPath": "C:\\Users\\karasd3\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.3\\Source\\VCR\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\Donald Karasz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karasd3\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
