@@ -72,19 +72,19 @@ namespace VCR
     {
         public bool AdvancedArmor = false;
         public bool AdvancedAccuracy = false;
-        public float AccuracyScale = 5;
+        public float AccuracyScale = 5f;
         public bool HandFeetPatch = false;
         public bool BulletsWorker = false;
         public bool ArrowsWorker = false;
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor");
-            Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy");
-            Scribe_Values.Look(ref AccuracyScale,"AccuracyScale");
-            Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch");
-            Scribe_Values.Look(ref BulletsWorker, "BulletsWorker");
-            Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker");
+            Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor", false);
+            Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false);
+            Scribe_Values.Look(ref AccuracyScale,"AccuracyScale", 5f);
+            Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch", false);
+            Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
+            Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker", false);
         }
         public void DoSettingsWindowContents(Rect inRect)
         {

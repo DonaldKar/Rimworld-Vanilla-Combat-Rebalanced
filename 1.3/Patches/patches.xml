@@ -49,7 +49,7 @@
 		</match>
 	</Operation>
 	
-	<!--bullet damage worker replacement-->
+	<!--bullet damage worker replacement, hybrid of stab and cut plus extra behaviors-->
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/DamageDef[defName="Bullet"]/workerClass</xpath>
 		<value>
@@ -64,4 +64,14 @@
 			</cutExtraTargetsCurve>
 		</value>
 	</Operation>
+	
+	<!--arrow damage worker replacement, hybrid of stab and scratch-->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Arrow" or defName="RangedStab"]/workerClass</xpath>
+		<value>
+			<workerClass>VCR.DamageWorker_Arrow</workerClass>
+			<scratchSplitPercentage>0.67</scratchSplitPercentage>
+		</value>
+	</Operation>
+	
 </Patch>

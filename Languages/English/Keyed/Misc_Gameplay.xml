@@ -12,7 +12,7 @@
 	<VCR.BulletsWorker>Custom Bullet Damage Worker</VCR.BulletsWorker>
 	<VCR.BWorkerTooltip>Bullets now have simulated fragmentation, pass through, and mushrooming damage behaviors based on the stopping power of the weapon, multiple projectiles on the same weapon will use the stopping power value of the first projectile.</VCR.BWorkerTooltip>
 	<VCR.ArrowsWorker>Custom Arrow Damage Worker</VCR.ArrowsWorker>
-	<VCR.AWorkerTooltip>Not yet implemented</VCR.AWorkerTooltip>
+	<VCR.AWorkerTooltip>Arrows now are more likely to hit internal body parts or deal extra cuts if an outside body part is hit.</VCR.AWorkerTooltip>
 	
 	<VCR.XmlSettings>Xml Settings: Need a restart to take effect</VCR.XmlSettings>
 	<VCR.HandFeetPatch>Cover Hands and Feet</VCR.HandFeetPatch>
