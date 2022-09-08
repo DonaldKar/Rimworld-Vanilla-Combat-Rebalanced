@@ -106,13 +106,13 @@ namespace VCR
             listingStandard.GapLine();
             var value2 = PenetrationScale;
             listingStandard.SliderLabeled("VCR.PenetrationScale".Translate(value2), ref value2, value2.ToString(), 0.001f, 5, "VCR.PenScaleTooltip".Translate());
-            PenetrationScale = value;
+            PenetrationScale = value2;
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.AdvanceAccuracy".Translate(), ref AdvancedAccuracy, "VCR.AAcctooltip".Translate());
             listingStandard.GapLine();
             var value3 = AccuracyScale;
             listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value3), ref value3, value3.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
-            AccuracyScale = value;
+            AccuracyScale = value3;
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.BulletsWorker".Translate(), ref BulletsWorker, "VCR.BWorkerTooltip".Translate());
             listingStandard.GapLine();
