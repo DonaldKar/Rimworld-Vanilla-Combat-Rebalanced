@@ -5,7 +5,7 @@
 	<VCR.AdvanceArmor>Enable advanced armor behavior</VCR.AdvanceArmor>
 	<VCR.AAtooltip>Armor effectiveness is doubled and armor penetration of weapons is quadrupled by default\n\nThis means that 100% armor will block any attacks with no armor penetration, the equivalent of wearing 200% armor protection in vanilla.\nArmor penetration of weapons has been effectively doubled relative to the displayed armor values\n\nExample:\n50% armor penetration bullet against 200% sharp protection armor\nVanilla: armor is reduced to 150%, damage is halved 25% of the time, blocked 75% of the time.\nAdvanced Armor: armor is reduced to 100%, damage is blocked 100% of the time.</VCR.AAtooltip>
 	<VCR.ArmorScale>Armor Penetration threshold: {0}</VCR.ArmorScale>
-	<VCR.ArmScaleTooltip>Minimum threshold ap before all damage is blocked\n\nThis threshold is based on 200 divided by the value on the slider.\n\nRecommended : 2</VCR.ArmScaleTooltip>
+	<VCR.ArmScaleTooltip>Minimum threshold ap before all damage is blocked\n\nThis threshold is based on 200 divided by the value on the slider or textbox.\n\nRecommended : 100% threshold at an entered value of 2</VCR.ArmScaleTooltip>
 	<VCR.PenetrationScale>Armor Penetration Bonus Scaling: {0}</VCR.PenetrationScale>
 	<VCR.PenScaleTooltip>Multiplier for all penetration values\n\nUse to maintain a competitive weapon environment in conjunction with armor penetration threshold.\n\nRecommended penetration: 2</VCR.PenScaleTooltip>
 

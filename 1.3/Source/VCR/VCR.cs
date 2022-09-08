@@ -73,9 +73,12 @@ namespace VCR
     {
         public bool AdvancedArmor = false;
         public float ArmorScale = 2f;
+        public string armtemp = "2";
         public float PenetrationScale = 2f;
+        public string pentemp = "2";
         public bool AdvancedAccuracy = false;
         public float AccuracyScale = 5f;
+        public string acctemp = "5";
         public bool HandFeetPatch = false;
         public bool BulletsWorker = false;
         public bool ArrowsWorker = false;
@@ -84,9 +87,12 @@ namespace VCR
             base.ExposeData();
             Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor", false);
             Scribe_Values.Look(ref ArmorScale, "ArmorScale", 2f);
+            Scribe_Values.Look(ref armtemp, "armtemp", "2");
             Scribe_Values.Look(ref PenetrationScale, "PenetrationScale", 2f);
+            Scribe_Values.Look(ref pentemp, "pentemp", "2");
             Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false);
             Scribe_Values.Look(ref AccuracyScale,"AccuracyScale", 5f);
+            Scribe_Values.Look(ref acctemp, "acctemp", "5");
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch", false);
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
             Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker", false);
@@ -102,13 +108,11 @@ namespace VCR
             listingStandard.GapLine();
             var value = ArmorScale;
             listingStandard.SliderLabeled("VCR.ArmorScale".Translate(200/value), ref value, value.ToString(), 0.001f, 5, "VCR.ArmScaleTooltip".Translate());
-            string armtemp="";
             listingStandard.TextFieldNumeric(ref value, ref armtemp, 0.001f, 5);
             ArmorScale = value;
             listingStandard.GapLine();
             var value2 = PenetrationScale;
             listingStandard.SliderLabeled("VCR.PenetrationScale".Translate(value2), ref value2, value2.ToString(), 0.001f, 5, "VCR.PenScaleTooltip".Translate());
-            string pentemp="";
             listingStandard.TextFieldNumeric(ref value2, ref pentemp, 0.001f, 5);
             PenetrationScale = value2;
             listingStandard.GapLine();
@@ -116,7 +120,6 @@ namespace VCR
             listingStandard.GapLine();
             var value3 = AccuracyScale;
             listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value3), ref value3, value3.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
-            string acctemp="";
             listingStandard.TextFieldNumeric(ref value3, ref acctemp, 1, 60);
             AccuracyScale = value3;
             listingStandard.GapLine();
