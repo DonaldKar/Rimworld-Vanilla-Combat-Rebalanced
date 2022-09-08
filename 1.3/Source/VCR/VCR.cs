@@ -38,11 +38,12 @@ namespace VCR
         public static void ApplySettings()
         {
             ArmorUtility_ApplyArmor_Patch.AArmor = VanillaCombatMod.settings.AdvancedArmor;
+            ArmorUtility_ApplyArmor_Patch.AArmorScale = VanillaCombatMod.settings.ArmorScale;
+            AdvanceArmor_postfix.APScale = VanillaCombatMod.settings.PenetrationScale;
             ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
             ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
             DamageWorker_Bullet.active = VanillaCombatMod.settings.BulletsWorker;
             DamageWorker_Arrow.active = VanillaCombatMod.settings.ArrowsWorker;
-
         }
     }
     //settings
@@ -71,6 +72,8 @@ namespace VCR
     public class VanillaCombatSettings : ModSettings
     {
         public bool AdvancedArmor = false;
+        public float ArmorScale = 2f;
+        public float PenetrationScale = 2f;
         public bool AdvancedAccuracy = false;
         public float AccuracyScale = 5f;
         public bool HandFeetPatch = false;
@@ -80,6 +83,8 @@ namespace VCR
         {
             base.ExposeData();
             Scribe_Values.Look(ref AdvancedArmor, "AdvancedArmor", false);
+            Scribe_Values.Look(ref ArmorScale, "ArmorScale", 2f);
+            Scribe_Values.Look(ref PenetrationScale, "PenetrationScale", 2f);
             Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false);
             Scribe_Values.Look(ref AccuracyScale,"AccuracyScale", 5f);
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch", false);
@@ -95,10 +100,18 @@ namespace VCR
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.AdvanceArmor".Translate(), ref AdvancedArmor, "VCR.AAtooltip".Translate());
             listingStandard.GapLine();
+            var value = ArmorScale;
+            listingStandard.SliderLabeled("VCR.ArmorScale".Translate(value), ref value, value.ToString(), 0.001f, 5, "VCR.ArmScaleTooltip".Translate());
+            ArmorScale = value;
+            listingStandard.GapLine();
+            var value2 = PenetrationScale;
+            listingStandard.SliderLabeled("VCR.PenetrationScale".Translate(value2), ref value2, value2.ToString(), 0.001f, 5, "VCR.PenScaleTooltip".Translate());
+            PenetrationScale = value;
+            listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.AdvanceAccuracy".Translate(), ref AdvancedAccuracy, "VCR.AAcctooltip".Translate());
             listingStandard.GapLine();
-            var value = AccuracyScale;
-            listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value), ref value, value.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
+            var value3 = AccuracyScale;
+            listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value3), ref value3, value3.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
             AccuracyScale = value;
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.BulletsWorker".Translate(), ref BulletsWorker, "VCR.BWorkerTooltip".Translate());
@@ -154,12 +167,13 @@ namespace VCR
     public static class ArmorUtility_ApplyArmor_Patch
     {
         public static bool AArmor;
+        public static float AArmorScale;
         public static bool Prefix(ref float armorPenetration, ref float armorRating)
         {
             if (AArmor)
             {
-                armorPenetration *= 2;
-                armorRating *= 2;
+                armorPenetration *= AArmorScale;
+                armorRating *= AArmorScale;
             }
             return true;
         }
@@ -167,6 +181,7 @@ namespace VCR
     [HarmonyPatch]
     public static class AdvanceArmor_postfix
     {
+        public static float APScale;
         static IEnumerable<MethodBase> TargetMethods()
         {
             yield return AccessTools.Method(typeof(VerbProperties), nameof(VerbProperties.AdjustedArmorPenetration), parameters: new Type[] { typeof(Tool), typeof(Pawn), typeof(Thing), typeof(HediffComp_VerbGiver) });
@@ -179,7 +194,7 @@ namespace VCR
         {
             if (ArmorUtility_ApplyArmor_Patch.AArmor)
             {
-                __result *= 2;
+                __result *= APScale;
             }
         }
     }
