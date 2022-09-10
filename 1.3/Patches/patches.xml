@@ -2,6 +2,7 @@
 <Patch>
 	<!--gloves and boots patcher-->
 	<Operation Class="VCR.PatchOperationXmlSetting">
+		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
 			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands')] and not(./li[contains(.,'Arms')])]/../layers</xpath>
@@ -13,6 +14,7 @@
 		</match>
 	</Operation>
 	<Operation Class="VCR.PatchOperationXmlSetting">
+		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
 			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers</xpath>
