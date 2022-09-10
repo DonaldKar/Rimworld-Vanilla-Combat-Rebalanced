@@ -37,7 +37,7 @@ namespace VCR
             }
 			totalDamage /= 2;
 			base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
-			float stoppingPower = (float)(dinfo.Weapon?.Verbs[0]?.defaultProjectile?.projectile?.stoppingPower ?? dinfo.Def.defaultStoppingPower);
+			float stoppingPower = (float)(dinfo.Weapon?.Verbs?.FirstOrDefault()?.defaultProjectile?.projectile?.stoppingPower ?? dinfo.Def.defaultStoppingPower);
 			List<BodyPartRecord> list = new List<BodyPartRecord>();
 			int num = 0;
 			if (stoppingPower < 1.0)

@@ -4,7 +4,7 @@
 	<Operation Class="VCR.PatchOperationXmlSetting">
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(.="wornGraphicPath")]/bodyPartGroups/li[(.="Hands") and not(.="Arms")]/../../layers</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands')] and not(./li[contains(.,'Arms')])]/../layers</xpath>
 			<value>
 				<layers>
 					<li>Overhead</li>
@@ -15,7 +15,7 @@
 	<Operation Class="VCR.PatchOperationXmlSetting">
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(.="wornGraphicPath")]/bodyPartGroups/li[(.="Feet") and not(.="Legs")]/../../layers</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers</xpath>
 			<value>
 				<layers>
 					<li>Overhead</li>
