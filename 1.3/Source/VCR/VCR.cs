@@ -34,6 +34,10 @@ namespace VCR
             {
                 XmlSettings.Add("HandFeetPatch");
             }
+            if (VanillaCombatMod.settings.GlassesHelmetPatch)
+            {
+                XmlSettings.Add("GlassesHelmetPatch");
+            }
         }
         public static void ApplySettings()
         {
@@ -82,6 +86,8 @@ namespace VCR
         public bool HandFeetPatch = false;
         public bool BulletsWorker = false;
         public bool ArrowsWorker = false;
+        public bool GlassesHelmetPatch = false;
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -96,6 +102,7 @@ namespace VCR
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch", false);
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
             Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker", false);
+            Scribe_Values.Look(ref GlassesHelmetPatch,"GlassesHelmetPatch", false);
         }
         public void DoSettingsWindowContents(Rect inRect)
         {
@@ -131,6 +138,8 @@ namespace VCR
             listingStandard.Label("VCR.XmlSettings".Translate());
             listingStandard.GapLine();
             listingStandard.CheckboxLabeled("VCR.HandFeetPatch".Translate(), ref HandFeetPatch, "VCR.HandFeetTooltip".Translate());
+            listingStandard.GapLine();
+            listingStandard.CheckboxLabeled("VCR.GlassesHelmetPatch".Translate(), ref GlassesHelmetPatch, "VCR.GlassesHelmetTooltip".Translate());
 
             listingStandard.End();
         }
@@ -169,8 +178,6 @@ namespace VCR
         }
     }
 
-
-
     //advanced armor patches
     [HarmonyPatch(typeof(ArmorUtility), "ApplyArmor")]
     public static class ArmorUtility_ApplyArmor_Patch
@@ -207,7 +214,7 @@ namespace VCR
             }
         }
     }
-    //advanced accuracy patches (not yet working)
+    //advanced accuracy patches
     [HarmonyPatch(typeof(ShotReport), "HitReportFor")]
     public static class ShotReport_HitReportFor_Patch
     {

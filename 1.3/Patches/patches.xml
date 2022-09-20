@@ -51,6 +51,17 @@
 		</match>
 	</Operation>
 	
+	<!--body eyes tag remover-->
+	<Operation Class="VCR.PatchOperationXmlSetting">
+		<setting>GlassesHelmetPatch</setting>
+		<match Class="PatchOperationConditional">
+			<xpath>Defs/BodyDef//li[groups/li="Eyes" and not(def=/Defs/BodyPartDef[tags/li="SightSource"]/defName)]</xpath>
+			<match Class="PatchOperationRemove">
+				<xpath>Defs/BodyDef//li[groups/li="Eyes" and not(def=/Defs/BodyPartDef[tags/li="SightSource"]/defName)]/groups/li[.="Eyes"]</xpath>
+			</match>
+		</match>
+	</Operation>
+	
 	<!--bullet damage worker replacement, hybrid of stab and cut plus extra behaviors-->
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/DamageDef[defName="Bullet"]/workerClass</xpath>

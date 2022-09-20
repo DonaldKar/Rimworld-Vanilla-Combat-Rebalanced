@@ -22,5 +22,7 @@
 	<VCR.XmlSettings>Xml Settings: Need a restart to take effect</VCR.XmlSettings>
 	<VCR.HandFeetPatch>Cover Hands and Feet</VCR.HandFeetPatch>
 	<VCR.HandFeetTooltip>Armor and apparel cover the hands and feet of a pawn, gloves or boots are moved to the headgear layer and can be equipped along with normal armor.</VCR.HandFeetTooltip>
+	<VCR.GlassesHelmetPatch>Glasses are not Helmets</VCR.GlassesHelmetPatch>
+	<VCR.GlassesHelmetTooltip>Changes eye protection to only cover the eyes instead of including the skull or brain.\n\nAllows for wear of a helmet covering the upper head and separate glasses/goggles in the same layer.</VCR.GlassesHelmetTooltip>
 
 </LanguageData>
