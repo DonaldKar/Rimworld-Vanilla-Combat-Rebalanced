@@ -10,11 +10,16 @@ namespace VCR
 	public class DamageWorker_Bullet : DamageWorker_AddInjury
 	{
 		public static bool active;
+		public static bool flanking;
 		protected override BodyPartRecord ChooseHitPart(DamageInfo dinfo, Pawn pawn)
 		{
-			if (!active)
+			if (!active && !flanking)
             {
 				return base.ChooseHitPart(dinfo, pawn);
+            }
+            if (flanking)
+            {
+				throw new Exception("flanking not implemeted");
             }
 			BodyPartRecord randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
 			if (randomNotMissingPart.depth != BodyPartDepth.Inside && Rand.Chance(def.stabChanceOfForcedInternal))

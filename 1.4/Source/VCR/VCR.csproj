@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DamageWorker_Arrow.cs" />
     <Compile Include="DamageWorker_Bullet.cs" />
+    <Compile Include="Flanking.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="VCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

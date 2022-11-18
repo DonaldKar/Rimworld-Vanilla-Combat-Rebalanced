@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Patch>
+	<!--thump damage to blunt-->
+	<Operation Class="VCR.PatchOperationXmlSetting">
+		<setting>ThumpBluntPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef/DamageDef[defName="thump"]/armorCategory</xpath>
+			<value>
+				<armorCategory>Blunt</armorCategory>
+			</value>
+		</match>
+	</Operation>
+	<!--acid damage to heat-->
+	<Operation Class="VCR.PatchOperationXmlSetting" MayRequire="ludeon.rimworld.biotech">
+		<setting>AcidHeatPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef/DamageDef[defName="AcidBurn"]/armorCategory</xpath>
+			<value>
+				<armorCategory>Heat</armorCategory>
+			</value>
+		</match>
+	</Operation>
 	<!--gloves and boots patcher-->
 	<Operation Class="VCR.PatchOperationXmlSetting">
 		<success>Always</success>
@@ -25,7 +45,7 @@
 			</value>
 		</match>
 	</Operation>
-	<!--body patcher-->
+	<!--hands and feet body patcher-->
 	<Operation Class="VCR.PatchOperationXmlSetting">
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationConditional">
@@ -61,7 +81,35 @@
 			</match>
 		</match>
 	</Operation>
-	
+	<!--flanking seeder-->
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<li Class="PatchOperationInsert">
+				<xpath>Defs/BodyDef//li[customLabel[not(contains(text(),'left') or contains(text(),'Left'))]]/groups/li</xpath>
+				<value>
+					<li>Right</li>
+				</value>
+			</li>
+			<li Class="PatchOperationInsert">
+				<xpath>Defs/BodyDef//li[customLabel[not(contains(text(),'right') or contains(text(),'Right'))]]/groups/li</xpath>
+				<value>
+					<li>Left</li>
+				</value>
+			</li>
+			<li Class="PatchOperationInsert">
+				<xpath>Defs/BodyDef//groups[li[contains(text(),"Left")] and li[contains(text(),"Right")]]/li</xpath>
+				<value>
+					<li>Center</li>
+				</value>
+			</li>
+			<li Class="PatchOperationInsert">
+				<xpath>Defs/BodyDef//groups[li[contains(text(),"Torso")] and li[not(contains(text(),"Center"))]]/li</xpath>
+				<value>
+					<li>Center</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
 	<!--bullet damage worker replacement, hybrid of stab and cut plus extra behaviors-->
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/DamageDef[defName="Bullet"]/workerClass</xpath>
