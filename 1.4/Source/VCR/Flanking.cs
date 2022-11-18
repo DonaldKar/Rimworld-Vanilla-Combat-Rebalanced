@@ -73,25 +73,26 @@ namespace VCR
                 a += x.coverageAbs * x.def.GetHitChanceFactorFor(damDef);
             }
             return a;
-        }
+        }//calculate chance total coverage of that height and group
         public static float relBodychance(Pawn target, BodyPartGroupDef side, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
             return Bodychance(target, side, damDef, height, tag, depth, partParent)/ Bodychance(target, side, damDef, BodyPartHeight.Undefined, tag, depth, partParent);
-        }
+        }//calculate hit chance of height relative to the total leftover coverage of hittable parts on that side
         public static float ChanceWithPawn(Thing caster,Pawn target, BodyPartGroupDef side, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
             float a = relBodychance(target, side, damDef, height, tag, depth, partParent);
             return ShotReport_HitReportFor_Patch.statpush(a, caster);
-        }
-        public static BodyPartRecord flank(Thing caster, Pawn target, BodyPartGroupDef side, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
+        }//adjustment of hit chance according to pawn's skill
+        public static BodyPartRecord flank(Thing caster, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
+            BodyPartGroupDef side = Side(caster, target); 
             IEnumerable<BodyPartRecord> enumerable = null;
             float a = ChanceWithPawn(caster, target, side, damDef, height, tag, depth, partParent);
             if (Rand.Chance(a))
             {
                 enumerable = GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side);
             }
-            else
+            if (enumerable == null)
             {
                 enumerable = GetNotMissingPartsWithGroup(target, BodyPartHeight.Undefined, depth, tag, partParent, side);
             }
@@ -104,10 +105,8 @@ namespace VCR
                 return result;
             }
             return null;
-        }
-
-
-        }
+        }//"worker" hooks into damage worker and outputs the hit target, if you fail hit of target, it rolls once more to hit a part on that side with any height
+    }
     [DefOf]
     public static class SideGroupOf
     {
@@ -118,6 +117,6 @@ namespace VCR
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(SideGroupOf));
         }
-    }
+    }//body group tags, xml patch is configured to always output something to hit for center (all torso parts are included in center)
 
 }

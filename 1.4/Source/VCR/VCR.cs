@@ -26,6 +26,16 @@ namespace VCR
             new Harmony("VCR.Mod").PatchAll();
             SetXmlSettings();
             ApplySettings();
+            //foreach (var thing in DefDatabase<ThingDef>.AllDefs)//create comp for gizmo purposes
+            //{
+            //    // Add CompTargetingMode to all pawn defs
+            //    if (typeof(Pawn).IsAssignableFrom(thing.thingClass))
+            //    {
+            //        if (thing.comps.NullOrEmpty())
+            //            thing.comps = new List<CompProperties>();
+            //        thing.comps.Add(new CompProperties(typeof(CompHeightTarget)));
+            //    }
+            //}
         }
         public static List<string> XmlSettings = new List<string>();
         public static void SetXmlSettings()
