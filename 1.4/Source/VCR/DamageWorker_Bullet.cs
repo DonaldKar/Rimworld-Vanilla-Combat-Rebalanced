@@ -37,7 +37,7 @@ namespace VCR
 
 		protected override void ApplySpecialEffectsToPart(Pawn pawn, float totalDamage, DamageInfo dinfo, DamageResult result)
 		{
-			if (!active)
+			if (!active||result.diminished)
             {
 				base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
 				return;

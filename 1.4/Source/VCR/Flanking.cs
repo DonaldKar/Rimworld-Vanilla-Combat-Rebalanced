@@ -58,17 +58,13 @@ namespace VCR
         }//list of parts to hit with that side and height
         public static float Bodychance(Pawn target, BodyPartGroupDef side, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
-            IEnumerable<BodyPartRecord> enumerable = null;
-            if (GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side).Any((BodyPartRecord p) => p.coverageAbs > 0f))//check for with height able to hit side
-            {
-                enumerable = GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side);
-            }
-            else
+            var list = GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side).ToList();
+            if (list.Any((BodyPartRecord p) => p.coverageAbs > 0f) is false)
             {
                 return 0;
             }
             float a = 0;
-            foreach (BodyPartRecord x in enumerable)
+            foreach (BodyPartRecord x in list)
             {
                 a += x.coverageAbs * x.def.GetHitChanceFactorFor(damDef);
             }
@@ -85,22 +81,15 @@ namespace VCR
         }//adjustment of hit chance according to pawn's skill
         public static BodyPartRecord flank(Thing caster, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
-            BodyPartGroupDef side = Side(caster, target); 
-            IEnumerable<BodyPartRecord> enumerable = null;
-            float a = ChanceWithPawn(caster, target, side, damDef, height, tag, depth, partParent);
-            if (Rand.Chance(a))
+            BodyPartGroupDef side = Side(caster, target);
+            if (Rand.Chance(ChanceWithPawn(caster, target, side, damDef, height, tag, depth, partParent)))
             {
-                enumerable = GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side);
+                if (GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side).TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs * x.def.GetHitChanceFactorFor(damDef), out var result))
+                {
+                    return result;
+                }
             }
-            if (enumerable == null)
-            {
-                enumerable = GetNotMissingPartsWithGroup(target, BodyPartHeight.Undefined, depth, tag, partParent, side);
-            }
-            if (enumerable.TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs * x.def.GetHitChanceFactorFor(damDef), out var result))
-            {
-                return result;
-            }
-            if (enumerable.TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs, out result))
+            else if (GetNotMissingPartsWithGroup(target, BodyPartHeight.Undefined, depth, tag, partParent, side).TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs, out var result))
             {
                 return result;
             }

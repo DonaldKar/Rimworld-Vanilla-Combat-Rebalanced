@@ -34,7 +34,7 @@ namespace VCR
 		}
 		protected override void ApplySpecialEffectsToPart(Pawn pawn, float totalDamage, DamageInfo dinfo, DamageResult result)
 		{
-			if (!active || dinfo.HitPart.depth == BodyPartDepth.Inside)
+			if (!active || result.diminished || dinfo.HitPart.depth == BodyPartDepth.Inside)
 			{
 				base.ApplySpecialEffectsToPart(pawn, totalDamage, dinfo, result);
 				return;
