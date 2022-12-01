@@ -1,237 +1,227 @@
-﻿//using RimWorld;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using Verse;
+﻿using HarmonyLib;
+using RimWorld;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using Verse;
+using Verse.AI;
 
-//namespace VCR
-//{
-//    public class CompHeightTarget:ThingComp, ITargetModeSettable
-//    {
-//        private const int TargetModeResetCheckInterval = 60;
+namespace VCR
+{
+    [HarmonyPatch(typeof(Pawn), nameof(Pawn.SpawnSetup))]
+    public static class Pawn_SpawnSetup_Patch
+    {
+        public static void Postfix(Pawn __instance, Map map, bool respawningAfterLoad)
+        {
+            if (!respawningAfterLoad && __instance.IsColonist is false)
+            {
+                __instance.TryAssignRandomTargetingMode();
+            }
+        }
+    }
 
-//        public Pawn Pawn => parent as Pawn;
+    [HarmonyPatch(typeof(Pawn), nameof(Pawn.DeSpawn))]
+    public static class Pawn_DeSpawn_Patch
+    {
+        public static void Prefix(Pawn __instance)
+        {
+            if (__instance.IsColonist is false && __instance.MapHeld is null)
+            {
+                __instance.TryResetTargetingMode();
+            }
+        }
+    }
 
-//        public override IEnumerable<Gizmo> CompGetGizmosExtra()
-//        {
-//            if (parent.Faction == Faction.OfPlayer && (Pawn == null && Pawn.Drafted))
-//                yield return TargetingModesUtility.SetTargetModeCommand(this);
-//        }
+    [HarmonyPatch(typeof(Pawn_DraftController), nameof(Pawn_DraftController.Drafted), MethodType.Setter)]
+    public static class Pawn_DraftController_Drafted_Patch
+    {
+        public static void Postfix(Pawn_DraftController __instance, bool value)
+        {
+            if (value is false)
+            {
+                __instance.pawn.TryResetTargetingMode();
+            }
+        }
+    }
 
-//        public override void CompTick()
-//        {
-//            base.CompTick();
+    [HarmonyPatch(typeof(Pawn_HealthTracker), "MakeDowned")]
+    public static class Pawn_HealthTracker_MakeDowned_Patch
+    {
+        private static void Postfix(Pawn ___pawn, DamageInfo? dinfo, Hediff hediff)
+        {
+            if (___pawn.Downed)
+            {
+                ___pawn.TryResetTargetingMode();
+            }
+        }
+    }
 
-//            // For compatibility with existing saves
-//            if (_targetingMode == null)
-//                SetTargetingMode(BodyPartHeight.Undefined);
+    public class CompHeightTarget : ThingComp, ITargetModeSettable
+    {
+        public Pawn Pawn => parent as Pawn;
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            if (parent.Faction == Faction.OfPlayer && (Pawn == null || Pawn.Drafted))
+                yield return TargetingModesUtility.SetTargetModeCommand(this);
+        }
 
-//            // Check if targeting mode should be reset every 60 ticks
-//            else if (parent.IsHashIntervalTick(TargetModeResetCheckInterval))
-//            {
-//                if (CanResetTargetingMode(out bool updateResetTick))
-//                    SetTargetingMode(TargetingModesUtility.defaultHeight);
-//                else if (updateResetTick)
-//                    _resetTargetingModeTick = Find.TickManager.TicksGame + TargModeResetAttemptInterval();
-//            }
-//        }
+        public override void PostExposeData()
+        {
+            base.PostExposeData();
+            Scribe_Values.Look(ref _targetingMode, "heightTarget");
+        }
 
-//        public bool CanResetTargetingMode(out bool updateResetTick)
-//        {
-//            updateResetTick = false;
+        public override string ToString() =>
+            $"CompTargetingMode for {parent} :: _targetingMode={_targetingMode.ToStringHuman()};";
 
-//            // World pawns are exempt to player restrictions
-//            if (parent.Map == null)
-//                return Find.TickManager.TicksGame < _resetTargetingModeTick;
+        public BodyPartHeight GetTargetingMode() => _targetingMode;
 
-//            // If player's set it to never reset, if the mode is already default or if it isn't time to update
-//            if (TargetingModesSettings.TargModeResetFrequencyInt == 0 || _targetingMode == TargetingModesUtility.defaultHeight || Find.TickManager.TicksGame < _resetTargetingModeTick)
-//                return false;
+        public void SetTargetingMode(BodyPartHeight targetMode)
+        {
+            // Actually set the targeting mode
+            _targetingMode = targetMode;
+        }
 
-//            // If the parent pawn is drafted or considered in dangerous combat
-//            if (Pawn != null && (Pawn.Drafted || GenAI.InDangerousCombat(Pawn)))
-//            {
-//                updateResetTick = true;
-//                return false;
-//            }
+        private BodyPartHeight _targetingMode = TargetingModesUtility.defaultHeight;
+    }
 
-//            // If the parent is a turret and is targeting something
-//            if (parent is Building_Turret turret && turret.CurrentTarget != null)
-//            {
-//                updateResetTick = true;
-//                return false;
-//            }
+    [StaticConstructorOnStartup]
+    public static class TargetingModesUtility
+    {
+        private static Texture2D SetTargetingModeTex = ContentFinder<Texture2D>.Get("UI/SetTargetingMode");
 
-//            return true;
-//        }
+        public static readonly List<BodyPartHeight> allTargetingModes = Enum.GetValues(typeof(BodyPartHeight)).Cast<BodyPartHeight>().ToList();
 
-//        private int TargModeResetAttemptInterval()
-//        {
-//            switch (parent.Faction == Faction.OfPlayer ? VanillaCombatSettings.TargModeResetFrequencyInt : 3)
-//            {
-//                // 1 = 1d
-//                case 1:
-//                    return GenDate.TicksPerDay;
-//                // 2 = 12h
-//                case 2:
-//                    return GenDate.TicksPerHour * 12;
-//                // 3 = 6h
-//                case 3:
-//                    return GenDate.TicksPerHour * 6;
-//                // 4 = 3h
-//                case 4:
-//                    return GenDate.TicksPerHour * 3;
-//                // other = 1h
-//                default:
-//                    return GenDate.TicksPerHour;
-//            };
-//        }
+        public static readonly BodyPartHeight defaultHeight = BodyPartHeight.Undefined;
 
-//        public override void PostExposeData()
-//        {
-//            base.PostExposeData();
-//            Scribe_Values.Look(ref _targetingMode, "heightTarget");
-//            Scribe_Values.Look(ref _resetTargetingModeTick, "resetTargetingModeTick", -1);
-//        }
+        static TargetingModesUtility()
+        {
+            foreach (var def in DefDatabase<ThingDef>.AllDefs)
+            {
+                if (def.race != null && (def.race.Humanlike || def.race.ToolUser))
+                {
+                    if (def.comps is null)
+                        def.comps = new List<CompProperties>();
 
-//        public override string ToString() =>
-//            $"CompTargetingMode for {parent} :: _targetingMode={_targetingMode.LabelCap}; _resetTargetingModeTick={_resetTargetingModeTick}; (TicksGame={Find.TickManager.TicksGame})";
+                    def.comps.Add(new CompProperties
+                    {
+                        compClass = typeof(CompHeightTarget)
+                    });
+                }
+            }
+        }
+        public static Command_SetTargetingMode SetTargetModeCommand(ITargetModeSettable settable) =>
+            new Command_SetTargetingMode
+            {
+                icon = SetTargetingModeTex,
+                defaultLabel = "VCR.CommandSetTargetingMode".Translate(settable.GetTargetingMode().ToStringHuman()),
+                defaultDesc = "VCR.CommandSetTargetingModeDesc".Translate(),
+                settable = settable,
+            };
 
-//        public BodyPartHeight GetTargetingMode() => _targetingMode;
+        public static BodyPartHeight GetTargetHeight(this Thing instigator)
+        {
+            if (instigator.CanUseTargetingModes())
+            {
+                var comp = instigator.TryGetComp<CompHeightTarget>();
+                if (comp != null)
+                {
+                    return comp.GetTargetingMode();
+                }
+            }
+            return defaultHeight;
+        }
+        public static bool CanUseTargetingModes(this Thing instigator)
+        {
+            // No instigator or instigator doesn't have CompTargetingMode
+            if (instigator == null || !instigator.def.HasComp(typeof(CompHeightTarget)))
+                return false;
 
-//        public void SetTargetingMode(BodyPartHeight targetMode)
-//        {
-//            // Actually set the targeting mode
-//            _targetingMode = targetMode;
+            // Melee attack
+            //if (typeof(Pawn).IsAssignableFrom(weapon.thingClass) || weapon.IsMeleeWeapon)
+            //    return true;
 
-//            // Set which tick the game will try to reset the mode at
-//            _resetTargetingModeTick = Find.TickManager.TicksGame + TargModeResetAttemptInterval();
-//        }
+            if (instigator is Pawn pawn)
+            {
+                // Explosive
+                if (pawn.CurrentEffectiveVerb.verbProps.CausesExplosion)
+                    return false;
+            }
 
-//        private BodyPartHeight _targetingMode = TargetingModesUtility.defaultHeight;
-//        private int _resetTargetingModeTick = -1;
+            if (instigator is Building_Turret turret)
+            {
+                // Explosive
+                if (turret.CurrentEffectiveVerb.verbProps.CausesExplosion)
+                    return false;
+            }
 
-//    }
-//    public static class TargetingModesUtility
-//    {
+            return true;
+        }
 
-//        public static readonly BodyPartHeight defaultHeight = BodyPartHeight.Undefined;
-//        public static Command_SetTargetingMode SetTargetModeCommand(ITargetModeSettable settable) =>
-//            new Command_SetTargetingMode
-//            {
-//                defaultDesc = "CommandSetTargetingModeDesc".Translate(),
-//                settable = settable
-//            };
+        public static void TryAssignRandomTargetingMode(this Pawn pawn)
+        {
+            if (pawn.TryGetComp<CompHeightTarget>() is CompHeightTarget Comp)
+            {
+                BodyPartHeight height = (BodyPartHeight)Rand.RangeInclusive(0,3);
+                Comp.SetTargetingMode(height);
+            }
+        }
+        public static void TryResetTargetingMode(this Pawn pawn)
+        {
+            if (pawn.TryGetComp<CompHeightTarget>() is CompHeightTarget Comp)
+            {
+                Comp.SetTargetingMode(defaultHeight);
+            }
+        }
+        public static string ToStringHuman(this BodyPartHeight targetingMode)
+        {
+            return ("VCR." + targetingMode.ToString()).Translate();
+        }
+    }
+    public interface ITargetModeSettable
+    {
+        BodyPartHeight GetTargetingMode();
 
-//        public static bool CanUseTargetingModes(this Thing instigator, ThingDef weapon)
-//        {
-//            // No instigator or instigator doesn't have CompTargetingMode
-//            if (instigator == null || !instigator.def.HasComp(typeof(CompHeightTarget)) || weapon == null)
-//                return false;
-
-//            // Melee attack
-//            //if (typeof(Pawn).IsAssignableFrom(weapon.thingClass) || weapon.IsMeleeWeapon)
-//            //    return true;
-
-//            if (instigator is Pawn pawn)
-//            {
-//                // Explosive
-//                if (pawn.CurrentEffectiveVerb.verbProps.CausesExplosion)
-//                    return false;
-//            }
-
-//            if (instigator is Building_Turret turret)
-//            {
-//                // Explosive
-//                if (turret.CurrentEffectiveVerb.verbProps.CausesExplosion)
-//                    return false;
-//            }
-
-//            return true;
-//        }
-
-//        public static void TryAssignRandomTargetingMode(this Pawn pawn)
-//        {
-//            if (VanillaCombatSettings.raidersCanTarget && pawn.TryGetComp<CompHeightTarget>() is CompHeightTarget Comp)
-//            {
-//                BodyPartHeight height = (BodyPartHeight)Rand.RangeInclusive(0,3);
-//                Comp.SetTargetingMode(height);
-//            }
-//        }
-//    }
-//    public interface ITargetModeSettable
-//    {
-
-//        BodyPartHeight GetTargetingMode();
-
-//        void SetTargetingMode(BodyPartHeight height);
-
-//    }
+        void SetTargetingMode(BodyPartHeight height);
+    }
 
 
-//    [StaticConstructorOnStartup]
-//    public class Command_SetTargetingMode : Command
-//    {
+    [StaticConstructorOnStartup]
+    public class Command_SetTargetingMode : Command
+    {
+        public ITargetModeSettable settable;
+        public List<ITargetModeSettable> settables;
+        public override void ProcessInput(Event ev)
+        {
+            base.ProcessInput(ev);
+            if (settables == null)
+                settables = new List<ITargetModeSettable>();
+            if (!settables.Contains(settable))
+                settables.Add(settable);
 
-//        private static Texture2D SetTargetingModeTex = ContentFinder<Texture2D>.Get("UI/TargetingModes/MultipleModes");
-//        public ITargetModeSettable settable;
-//        public List<ITargetModeSettable> settables;
+            List<FloatMenuOption> targetingModeOptions = new List<FloatMenuOption>();
+            foreach (var targetMode in TargetingModesUtility.allTargetingModes)
+                targetingModeOptions.Add(new FloatMenuOption(FloatMenuLabel(targetMode),
+                    () =>
+                    {
+                        for (int i = 0; i < settables.Count; i++)
+                            settables[i].SetTargetingMode(targetMode);
+                    }));
+            Find.WindowStack.Add(new FloatMenu(targetingModeOptions));
+        }
 
-//        public Command_SetTargetingMode()
-//        {
-//            BodyPartHeight height = BodyPartHeight.Undefined;
-//            bool multiplePawnsSelected = false;
-//            foreach (object obj in Find.Selector.SelectedObjects)
-//            {
-//                if (obj is ThingWithComps thing && thing.TryGetComp<CompHeightTarget>() is ITargetModeSettable targetModeSettable)
-//                {
-//                    if (targetingMode != null && targetingMode != targetModeSettable.GetTargetingMode())
-//                    {
-//                        multiplePawnsSelected = true;
-//                        break;
-//                    }
-//                    targetingMode = targetModeSettable.GetTargetingMode();
-//                }
-//            }
-//            icon = (multiplePawnsSelected) ? SetTargetingModeTex : targetingMode.uiIcon;
-//            defaultLabel = (multiplePawnsSelected) ? "CommandSetTargetingModeMulti".Translate() : "CommandSetTargetingMode".Translate(targetingMode.LabelCap);
-//        }
+        private string FloatMenuLabel(BodyPartHeight targetingMode)
+        {
+            return targetingMode.ToStringHuman();
+        }
 
-//        public override void ProcessInput(Event ev)
-//        {
-//            base.ProcessInput(ev);
-//            if (settables == null)
-//                settables = new List<ITargetModeSettable>();
-//            if (!settables.Contains(settable))
-//                settables.Add(settable);
-//            TargetingModes.SortBy(t => -t.displayOrder, t => t.LabelCap);
-//            List<FloatMenuOption> targetingModeOptions = new List<FloatMenuOption>();
-//            foreach (TargetingModeDef targetMode in TargetingModes)
-//                targetingModeOptions.Add(new FloatMenuOption(FloatMenuLabel(targetMode),
-//                    () =>
-//                    {
-//                        for (int i = 0; i < settables.Count; i++)
-//                            settables[i].SetTargetingMode(targetMode);
-//                    }));
-//            Find.WindowStack.Add(new FloatMenu(targetingModeOptions));
-//        }
-
-//        private string FloatMenuLabel(TargetingModeDef targetingMode)
-//        {
-//            string label = targetingMode.LabelCap;
-//            if (targetingMode.HitChanceFactor != 1f)
-//                label += $" (x{targetingMode.HitChanceFactor.ToStringPercent()} Acc)";
-//            return label;
-//        }
-
-//        public override bool InheritInteractionsFrom(Gizmo other)
-//        {
-//            if (settables == null)
-//                settables = new List<ITargetModeSettable>();
-//            settables.Add(((Command_SetTargetingMode)other).settable);
-//            return false;
-//        }
-
-//        public List<BodyPartHeight> TargetingModes => BodyPartHeight;
-
-//    }
-//}
+        public override bool InheritInteractionsFrom(Gizmo other)
+        {
+            if (settables == null)
+                settables = new List<ITargetModeSettable>();
+            settables.Add(((Command_SetTargetingMode)other).settable);
+            return false;
+        }
+    }
+}

@@ -19,8 +19,8 @@ namespace VCR
             }
             if (flanking)
             {
-				dinfo.SetBodyRegion(BodyPartHeight.Top);//will likely change to something that will fetch it from the comp on the pawn
-				return Flanking.flank(dinfo.Instigator, pawn, dinfo.Def, dinfo.Height, null, dinfo.Depth, null);
+				var targetHeight = pawn.GetTargetHeight();
+				return Flanking.flank(dinfo.Instigator, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
 			}
 			//default if flanking is not enabled
 			BodyPartRecord randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
