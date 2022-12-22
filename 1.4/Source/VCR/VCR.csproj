@@ -49,6 +49,7 @@
     <Compile Include="Flanking.cs" />
     <Compile Include="Parrying.cs" />
     <Compile Include="SettingsHelper.cs" />
+    <Compile Include="TooltipUtility_ShotCalculationTipString_Patch.cs" />
     <Compile Include="VCR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
