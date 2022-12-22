@@ -32,4 +32,6 @@
 	
 	<VCR.CommandSetTargetingMode>Target mode: {0}</VCR.CommandSetTargetingMode>
 	<VCR.CommandSetTargetingModeDesc>placeholder</VCR.CommandSetTargetingModeDesc>
+	<VCR.MeleeHitChance>Melee hit chance: {0}</VCR.MeleeHitChance>
+	<VCR.TargetDodgeChance>Melee target dodge chance: {0}</VCR.TargetDodgeChance>
 </LanguageData>
