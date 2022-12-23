@@ -2,6 +2,8 @@
 <LanguageData>
 
 	<VCR.generaltab>General Settings</VCR.generaltab>
+	
+	<VCR.AdvanceArmorTab>Armor</VCR.AdvanceArmorTab>
 	<VCR.AdvanceArmor>Enable advanced armor behavior</VCR.AdvanceArmor>
 	<VCR.AAtooltip>Armor effectiveness is doubled and armor penetration of weapons is quadrupled by default\n\nThis means that 100% armor will block any attacks with no armor penetration, the equivalent of wearing 200% armor protection in vanilla.\nArmor penetration of weapons has been effectively doubled relative to the displayed armor values\n\nExample:\n50% armor penetration bullet against 200% sharp protection armor\nVanilla: armor is reduced to 150%, damage is halved 25% of the time, blocked 75% of the time.\nAdvanced Armor: armor is reduced to 100%, damage is blocked 100% of the time.</VCR.AAtooltip>
 	<VCR.ArmorScale>Armor Penetration threshold: {0}</VCR.ArmorScale>
@@ -9,23 +11,63 @@
 	<VCR.PenetrationScale>Armor Penetration Bonus Scaling: {0}</VCR.PenetrationScale>
 	<VCR.PenScaleTooltip>Multiplier for all penetration values\n\nUse to maintain a competitive weapon environment in conjunction with armor penetration threshold.\n\nRecommended penetration: 2</VCR.PenScaleTooltip>
 
+	<VCR.AdvanceAccuracyTab>Accuracy</VCR.AdvanceAccuracyTab>
 	<VCR.AdvanceAccuracy>Enable advanced accuracy calculations</VCR.AdvanceAccuracy>
 	<VCR.AAcctooltip>Shooter Skill now affects weapon and weather accuracy, a good shooter should be able to overcome any problems with a gun or weather condition. Turret, smoke, and cover accuracy are not affected.</VCR.AAcctooltip>
 	<VCR.AccuracyScale>Accuracy Bonus Scaling: {0}</VCR.AccuracyScale>
 	<VCR.AccScaleTooltip>Minimum accuracy before advanced accuracy calculations are activated, inversely related to accuracy per point\n\nWith a higher threshold, each point above the threshold has a smaller effect than with a lower threshold\n\nRecommended accuracy: 5</VCR.AccScaleTooltip>
 
+	<VCR.EvasionTab>Evasion</VCR.EvasionTab>
+	<VCR.Evasion>Enable Evasion</VCR.Evasion>
+	<VCR.Evatooltip>Pawns can evade ranged shots if they are moving fast enough, based on the current speed of a pawn</VCR.Evatooltip>
+	<VCR.EvasionScale>Evasion Scale: {0}</VCR.EvasionScale>
+	<VCR.EvaScaleTooltip>How substantially evasion can affect accuracy.\n\nHigher values mean evasion has less of an effect, while lower values mean a more drastic effect.\n\nDefault: 0.8</VCR.EvaScaleTooltip>
+	<VCR.MinSpeed>Minimum Speed: {0}</VCR.MinSpeed>
+	<VCR.MinSpeedTooltip>The minimum speed before evasion has an effect. Default: 2.5</VCR.MinSpeedTooltip>
+	<VCR.EvasionAccuracy>Evasion and Advanced Accuracy Link</VCR.EvasionAccuracy>
+	<VCR.EvaAcctooltip>The amount of evasion a pawn can obtain is reduced by the shooting skill of the shooter. Requires Advanced Accuracy to be active.</VCR.EvaAcctooltip>
+
+	<VCR.ParryTab>Parry</VCR.ParryTab>
+	<VCR.Parry>Enable Parry</VCR.Parry>
+	<VCR.Parrytooltip>Pawns can parry a melee attack if they have a weapon equipped based on the melee hit chance of the attacker and defender</VCR.Parrytooltip>
+	<VCR.ParryFront>Front Defence: {0}</VCR.ParryFront>
+	<VCR.ParryFrontTooltip>The effectiveness that a pawn can parry an attack coming from the front.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1</VCR.ParryFrontTooltip>
+	<VCR.ParrySide>Side Defence: {0}</VCR.ParrySide>
+	<VCR.ParrySideTooltip>The effectiveness that a pawn can parry an attack coming from the side.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1</VCR.ParrySideTooltip>
+	
+	<VCR.DamageWorkerTab>Damage Workers</VCR.DamageWorkerTab>
 	<VCR.BulletsWorker>Custom Bullet Damage Worker</VCR.BulletsWorker>
-	<VCR.BWorkerTooltip>Bullets now have simulated fragmentation, pass through, and mushrooming damage behaviors based on the stopping power of the weapon, multiple projectiles on the same weapon will use the stopping power value of the first projectile.</VCR.BWorkerTooltip>
+	<VCR.BWorkerTooltip>Bullets now have simulated fragmentation, pass through, and mushrooming damage behaviors based on the stopping power of the weapon.\n\nMultiple projectiles on the same weapon will use the stopping power value of the first projectile.</VCR.BWorkerTooltip>
+	<VCR.SPLimit>Stopping Power Bonus Limit</VCR.SPLimit>
+	<VCR.SPTooltip>Some modded weapons have extremely high stopping power values leading to unexpectedly high damage values. This setting limits the bonus for weapons above this value.</VCR.SPTooltip>
 	<VCR.ArrowsWorker>Custom Arrow Damage Worker</VCR.ArrowsWorker>
 	<VCR.AWorkerTooltip>Arrows now are more likely to hit internal body parts or deal extra cuts if an outside body part is hit.</VCR.AWorkerTooltip>
+	<VCR.Flanking>Enable Ranged Flanking</VCR.Flanking>
+	<VCR.FlankingTooltip>Ranged Damage (Bullets and Arrows) affects a pawn based on the incoming direction of the attack.\n\nActivates height targeting that weights attacks to hit a specified height based on skill.</VCR.FlankingTooltip>
+	<VCR.MeleeFlank>Enable Melee Flanking</VCR.MeleeFlank>
+	<VCR.MeleeFlankTooltip>Melee Damage (Blunt, Stab, Scratch and Cut) affects a pawn based on the incoming direction of the attack.\n\nActivates height targeting that weights attacks to hit a specified height based on skill.</VCR.MeleeFlankTooltip>
 	
+	<VCR.Xml>XML</VCR.Xml>
 	<VCR.XmlSettings>Xml Settings: Need a restart to take effect</VCR.XmlSettings>
 	<VCR.HandFeetPatch>Cover Hands and Feet</VCR.HandFeetPatch>
-	<VCR.HandFeetTooltip>Armor and apparel cover the hands and feet of a pawn, gloves or boots are moved to the headgear layer and can be equipped along with normal armor.</VCR.HandFeetTooltip>
+	<VCR.HandFeetTooltip>Armor and apparel cover the hands and feet of a pawn.\n\nGloves or boots are moved to the headgear layer and one can be equipped along with normal armor.</VCR.HandFeetTooltip>
+	<VCR.AcidHeatPatch>Acid is Heat Damage</VCR.AcidHeatPatch>
+	<VCR.AcidHeatTooltip>Acid damage's armor type is changed from sharp to heat</VCR.AcidHeatTooltip>
+	<VCR.ThumpBluntPatch>Thump is Blunt Damage</VCR.ThumpBluntPatch>
+	<VCR.ThumpBluntTooltip>Thump damage's armor type is changed from sharp to blunt</VCR.ThumpBluntTooltip>
 	<VCR.GlassesHelmetPatch>Glasses are not Helmets</VCR.GlassesHelmetPatch>
 	<VCR.GlassesHelmetTooltip>Changes eye protection to only cover the eyes instead of including the skull or brain.\n\nAllows for wear of a helmet covering the upper head and separate glasses/goggles in the same layer.</VCR.GlassesHelmetTooltip>
 	
-	<VCR.Undefined>Undefined</VCR.Undefined>
+	
+	<VCR.AdjWeapon>Weapon w/ Skill</VCR.AdjWeapon>
+	<VCR.AdjWeather>Weather w/ Skill</VCR.AdjWeather>
+	<VCR.EvasionRead>Evasion</VCR.EvasionRead>
+	<VCR.AdjEvasionRead>Evasion w/ Skill</VCR.AdjEvasionRead>
+	<VCR.TargetSide>Target Side</VCR.TargetSide>
+	<VCR.HeightChance>Chance to hit </VCR.HeightChance>
+	<VCR.TextMote_Parry>Parried</VCR.TextMote_Parry>
+	
+	<VCR.Undefined>None</VCR.Undefined>
 	<VCR.Bottom>Bottom</VCR.Bottom>
 	<VCR.Middle>Middle</VCR.Middle>
 	<VCR.Top>Top</VCR.Top>
@@ -34,4 +76,5 @@
 	<VCR.CommandSetTargetingModeDesc>placeholder</VCR.CommandSetTargetingModeDesc>
 	<VCR.MeleeHitChance>Melee hit chance: {0}</VCR.MeleeHitChance>
 	<VCR.TargetDodgeChance>Melee target dodge chance: {0}</VCR.TargetDodgeChance>
+	<VCR.CommandSetTargetingModeDesc>Attacks from this pawn will be weighted to hit parts with this height.</VCR.CommandSetTargetingModeDesc>
 </LanguageData>

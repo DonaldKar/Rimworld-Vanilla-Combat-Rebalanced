@@ -19,7 +19,8 @@ namespace VCR
 			}
 			if (flanking)
 			{
-				throw new Exception("flanking not implemeted");
+				var targetHeight = dinfo.Instigator.GetTargetHeight();
+				return Flanking.flank(dinfo.Instigator, dinfo.Angle, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
 			}
 			BodyPartRecord randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
 			if (randomNotMissingPart.depth != BodyPartDepth.Inside && Rand.Chance(def.stabChanceOfForcedInternal))

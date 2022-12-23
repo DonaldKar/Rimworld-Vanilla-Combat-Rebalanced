@@ -57,7 +57,7 @@ namespace VCR
         }
         public static float statpush(float factor, Thing caster)
         {
-            if (AAccuracy)
+            if (VanillaCombatMod.settings.Flanking)
             {
                 float shootstat = Mathf.Max(1, ((caster is Pawn) ? StatDefOf.ShootingAccuracyPawn.Worker.GetValue(StatRequest.For(caster), false) : StatDefOf.ShootingAccuracyTurret.Worker.GetValue(StatRequest.For(caster), false)) / AccScale);//caster.GetStatValue(StatDefOf.ShootingAccuracyPawn, false): caster.GetStatValue(StatDefOf.ShootingAccuracyTurret,false));
                 factor = 1-Mathf.Pow(1-factor, shootstat);

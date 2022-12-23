@@ -53,7 +53,7 @@ namespace VCR
             //Log.Message("parry success");
             result = false;
             soundDef = SoundParry(verb);
-            MoteMaker.ThrowText(target.DrawPos, target.Map, "TextMote_Parry".Translate(), 1.9f);
+            MoteMaker.ThrowText(target.DrawPos, target.Map, "VCR.TextMote_Parry".Translate(), 1.9f);
             verb.CreateCombatLog((ManeuverDef maneuver) => maneuver.combatLogRulesDeflect, alwaysShow: false);
             return true;
         }

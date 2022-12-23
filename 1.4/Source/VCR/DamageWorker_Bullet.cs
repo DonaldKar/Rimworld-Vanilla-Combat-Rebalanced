@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 
 namespace VCR
@@ -11,6 +12,7 @@ namespace VCR
 	{
 		public static bool active;
 		public static bool flanking;
+		public static float SPmax;
 		protected override BodyPartRecord ChooseHitPart(DamageInfo dinfo, Pawn pawn)
 		{
 			if (!active && !flanking)
@@ -19,8 +21,8 @@ namespace VCR
             }
             if (flanking)
             {
-				var targetHeight = pawn.GetTargetHeight();
-				return Flanking.flank(dinfo.Instigator, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
+				var targetHeight = dinfo.Instigator.GetTargetHeight();
+				return Flanking.flank(dinfo.Instigator, dinfo.Angle, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
 			}
 			//default if flanking is not enabled
 			BodyPartRecord randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
@@ -68,7 +70,7 @@ namespace VCR
 			}
 			else
             {
-				totalDamage *= stoppingPower;
+				totalDamage *= Mathf.Min(stoppingPower, SPmax);
 				if(stoppingPower <= 1.5)
                 {
 					for (BodyPartRecord bodyPartRecord = dinfo.HitPart; bodyPartRecord != null; bodyPartRecord = bodyPartRecord.parent)

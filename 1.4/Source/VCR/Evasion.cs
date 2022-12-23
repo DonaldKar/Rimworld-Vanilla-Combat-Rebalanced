@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 
 namespace VCR
 {
     //evasion patches
-    [HarmonyPatch(typeof(ShotReport), "AimOnTargetChance_StandardTarget", MethodType.Getter)]
-    public static class ShotReport_AimOnTargetChance_StandardTarget_Patch
+    [HarmonyPatch(typeof(ShotReport), "AimOnTargetChance_IgnoringPosture", MethodType.Getter)]
+    public static class ShotReport_AimOnTargetChance_IgnoringPosture_Patch
     {
         public static bool Eva;
         public static float baseEvasion;
@@ -71,14 +72,16 @@ namespace VCR
     {
         public static bool Prefix(ref string __result, ShotReport __instance, TargetInfo ___target, float ___distance, List<CoverInfo> ___covers,
                                     float ___factorFromShooterAndDist, float ___factorFromEquipment, float ___factorFromTargetSize, float ___factorFromWeather,
-                                    float ___forcedMissRadius, float ___offsetFromDarkness, float ___factorFromCoveringGas)
+                                    float ___forcedMissRadius, float ___offsetFromDarkness, float ___factorFromCoveringGas,ShootLine ___shootLine)
         {
-            if (ShotReport_HitReportFor_Patch.AAccuracy || ShotReport_AimOnTargetChance_StandardTarget_Patch.Eva)
+            float angle = Quaternion.LookRotation((___shootLine.Dest.ToVector3() - ___shootLine.Source.ToVector3()).Yto0()).eulerAngles.y;
+            //Log.Message(angle.ToString());
+            if (ShotReport_HitReportFor_Patch.AAccuracy || ShotReport_AimOnTargetChance_IgnoringPosture_Patch.Eva||VanillaCombatMod.settings.Flanking)
             {
                 __result = CustomTextReadout(__instance, ___target, ___distance, ___covers,
                                     ___factorFromShooterAndDist, ___factorFromEquipment, ___factorFromTargetSize, ___factorFromWeather,
                                     ___forcedMissRadius, ___offsetFromDarkness, ___factorFromCoveringGas, FactorFromPosture(___target, ___distance),
-                                    FactorFromExecution(___target, ___distance));
+                                    FactorFromExecution(___target, ___distance), angle);
                 return false;
             }
             return true;
@@ -107,7 +110,7 @@ namespace VCR
         public static string CustomTextReadout(ShotReport instance, TargetInfo target, float distance, List<CoverInfo> covers,
                                     float factorFromShooterAndDist, float factorFromEquipment, float factorFromTargetSize, float factorFromWeather,
                                     float forcedMissRadius, float offsetFromDarkness, float factorFromCoveringGas, float FactorFromPosture,
-                                    float FactorFromExecution)
+                                    float FactorFromExecution, float angle)
         {
             StringBuilder stringBuilder = new StringBuilder();
             if (forcedMissRadius > 0.5f)
@@ -173,8 +176,8 @@ namespace VCR
                         stringBuilder.AppendLine("   " + StatDefOf.ShootingAccuracyIndoorsLitOffset.LabelCap + "   " + offsetFromDarkness.ToStringPercent());
                     }
                 }
-                float eva1 = ShotReport_AimOnTargetChance_StandardTarget_Patch.CurEvasion;
-                float eva2 = ShotReport_AimOnTargetChance_StandardTarget_Patch.FinalEvasion;
+                float eva1 = ShotReport_AimOnTargetChance_IgnoringPosture_Patch.CurEvasion;
+                float eva2 = ShotReport_AimOnTargetChance_IgnoringPosture_Patch.FinalEvasion;
                 if (eva1 < 0.99f)
                 {
                     stringBuilder.AppendLine("   " + "VCR.EvasionRead".Translate() + ": " + eva1.ToStringPercent());
@@ -199,6 +202,19 @@ namespace VCR
                 else
                 {
                     stringBuilder.AppendLine("   (" + "NoCoverLower".Translate() + ")");
+                }
+                if (VanillaCombatMod.settings.Flanking)
+                {
+                    BodyPartGroupDef side = Flanking.Side(angle, target.Thing);
+                    if (side != null)
+                    {
+                        stringBuilder.AppendLine("   " + "VCR.TargetSide".Translate() + ": " + side.LabelShort);
+                    }
+                    BodyPartHeight height = ShotReport_HitReportFor_Patch.shotCaster.GetTargetHeight();
+                    if (height != BodyPartHeight.Undefined && target.Thing is Pawn)
+                    {
+                        stringBuilder.AppendLine("   " + "VCR.HeightChance".Translate() + height.ToStringHuman() + ": " + Flanking.ChanceWithPawn(ShotReport_HitReportFor_Patch.shotCaster, (Pawn)target.Thing, side, DamageDefOf.Bullet, height).ToStringPercent());
+                    }
                 }
             }
             return stringBuilder.ToString();

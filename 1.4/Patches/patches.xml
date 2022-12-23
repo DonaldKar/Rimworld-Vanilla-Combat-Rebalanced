@@ -4,7 +4,7 @@
 	<Operation Class="VCR.PatchOperationXmlSetting">
 		<setting>ThumpBluntPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/DamageDef[defName="thump"]/armorCategory</xpath>
+			<xpath>Defs/DamageDef[defName="Thump"]/armorCategory</xpath>
 			<value>
 				<armorCategory>Blunt</armorCategory>
 			</value>
@@ -14,7 +14,7 @@
 	<Operation Class="VCR.PatchOperationXmlSetting" MayRequire="ludeon.rimworld.biotech">
 		<setting>AcidHeatPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/DamageDef[defName="AcidBurn"]/armorCategory</xpath>
+			<xpath>Defs/DamageDef[defName="AcidBurn"]/armorCategory</xpath>
 			<value>
 				<armorCategory>Heat</armorCategory>
 			</value>

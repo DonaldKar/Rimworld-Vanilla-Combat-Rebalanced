@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.7.2": {
-      "Krafs.Rimworld.Ref/1.4.3517-beta": {
+      "Krafs.Rimworld.Ref/1.4.3563": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -89,19 +89,15 @@
       "Lib.Harmony/2.2.2": {
         "type": "package",
         "compile": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win": {
-      "Krafs.Rimworld.Ref/1.4.3517-beta": {
+      "Krafs.Rimworld.Ref/1.4.3563": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -188,19 +184,15 @@
       "Lib.Harmony/2.2.2": {
         "type": "package",
         "compile": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win-x64": {
-      "Krafs.Rimworld.Ref/1.4.3517-beta": {
+      "Krafs.Rimworld.Ref/1.4.3563": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -287,19 +279,15 @@
       "Lib.Harmony/2.2.2": {
         "type": "package",
         "compile": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         }
       }
     },
     ".NETFramework,Version=v4.7.2/win-x86": {
-      "Krafs.Rimworld.Ref/1.4.3517-beta": {
+      "Krafs.Rimworld.Ref/1.4.3563": {
         "type": "package",
         "compile": {
           "ref/net472/Assembly-CSharp-firstpass.dll": {},
@@ -386,30 +374,26 @@
       "Lib.Harmony/2.2.2": {
         "type": "package",
         "compile": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         },
         "runtime": {
-          "lib/net472/0Harmony.dll": {
-            "related": ".xml"
-          }
+          "lib/net472/0Harmony.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Krafs.Rimworld.Ref/1.4.3517-beta": {
-      "sha512": "L69NO85zY7s1g0KlYlW60mmmKu7ZDjZUg2MITOt5jl/f4AbCDp9SIfgMcYN6l9+fa5GwXn6ntU0ui5P47gnn8w==",
+    "Krafs.Rimworld.Ref/1.4.3563": {
+      "sha512": "O1VIJk3inWgS6ZE3x2sPF77fLA4VRL77NSVB1Y0y7pdExAtlBMrVEA5CBaXpOY0jrGEyR5pyXdBInrJDbDjc/w==",
       "type": "package",
-      "path": "krafs.rimworld.ref/1.4.3517-beta",
+      "path": "krafs.rimworld.ref/1.4.3563",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "README.md",
         "icon.png",
-        "krafs.rimworld.ref.1.4.3517-beta.nupkg.sha512",
+        "krafs.rimworld.ref.1.4.3563.nupkg.sha512",
         "krafs.rimworld.ref.nuspec",
         "ref/net472/Assembly-CSharp-firstpass.dll",
         "ref/net472/Assembly-CSharp.dll",
@@ -524,25 +508,25 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.2": [
-      "Krafs.Rimworld.Ref >= 1.4.3517-beta",
+      "Krafs.Rimworld.Ref >= 1.4.3563",
       "Lib.Harmony >= 2.2.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vova\\.nuget\\packages\\": {}
+    "C:\\Users\\karasd3\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
+      "projectUniqueName": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
       "projectName": "VanillaCombatReloaded",
-      "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
-      "packagesPath": "C:\\Users\\Vova\\.nuget\\packages\\",
-      "outputPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\obj\\",
+      "projectPath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
+      "packagesPath": "C:\\Users\\karasd3\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\Vova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\karasd3\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -563,7 +547,7 @@
         "dependencies": {
           "Krafs.Rimworld.Ref": {
             "target": "Package",
-            "version": "[1.4.3517-beta, )"
+            "version": "[1.4.3563, )"
           },
           "Lib.Harmony": {
             "target": "Package",

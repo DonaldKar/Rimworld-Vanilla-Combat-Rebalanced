@@ -30,6 +30,17 @@ namespace VCR
             Rot4 t = target.Rotation;
             return Rot4.GetRelativeRotation(c, t);//none=rear, opposite=front, clockwise=right, counterclockwise=left
         }
+        public static RotationDirection getdirection(float angle, Thing target)
+        {
+            Rot4 c;
+            if (target is Pawn && (target as Pawn).Downed)
+            {
+                return RotationDirection.Opposite;
+            }
+            c = Rot4.FromAngleFlat(angle);
+            Rot4 t = target.Rotation;
+            return Rot4.GetRelativeRotation(c, t);//none=rear, opposite=front, clockwise=right, counterclockwise=left
+        }
 
         public static BodyPartGroupDef Side(Thing Caster, Thing Target)
         {
@@ -45,6 +56,23 @@ namespace VCR
                 case RotationDirection.Opposite:
                     return null;
                 default: 
+                    return null;
+            }
+        }//grab side to use
+        public static BodyPartGroupDef Side(float angle, Thing Target)
+        {
+            RotationDirection a = getdirection(angle, Target);
+            switch (a)
+            {
+                case RotationDirection.Clockwise:
+                    return SideGroupOf.Right;//contains all right and center
+                case RotationDirection.Counterclockwise:
+                    return SideGroupOf.Left;//contains all left and center
+                case RotationDirection.None:
+                    return SideGroupOf.Center;//contains all that cover left and right or torso
+                case RotationDirection.Opposite:
+                    return null;
+                default:
                     return null;
             }
         }//grab side to use
@@ -79,9 +107,9 @@ namespace VCR
             float a = relBodychance(target, side, damDef, height, tag, depth, partParent);
             return ShotReport_HitReportFor_Patch.statpush(a, caster);
         }//adjustment of hit chance according to pawn's skill
-        public static BodyPartRecord flank(Thing caster, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
+        public static BodyPartRecord flank(Thing caster, float angle, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
-            BodyPartGroupDef side = Side(caster, target);
+            BodyPartGroupDef side = Side(angle, target);
             if (Rand.Chance(ChanceWithPawn(caster, target, side, damDef, height, tag, depth, partParent)))
             {
                 if (GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side).TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs * x.def.GetHitChanceFactorFor(damDef), out var result))

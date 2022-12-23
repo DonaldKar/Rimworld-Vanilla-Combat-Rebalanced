@@ -66,10 +66,10 @@ namespace VCR
             ShotReport_HitReportFor_Patch.AAccuracy = VanillaCombatMod.settings.AdvancedAccuracy;
             ShotReport_HitReportFor_Patch.AccScale = VanillaCombatMod.settings.AccuracyScale;
             
-            ShotReport_AimOnTargetChance_StandardTarget_Patch.Eva = VanillaCombatMod.settings.Evasion;
-            ShotReport_AimOnTargetChance_StandardTarget_Patch.baseEvasion = VanillaCombatMod.settings.EvasionScale;
-            ShotReport_AimOnTargetChance_StandardTarget_Patch.minSpeed = VanillaCombatMod.settings.minSpeed;
-            ShotReport_AimOnTargetChance_StandardTarget_Patch.EvaAcc = VanillaCombatMod.settings.EvaAcc;
+            ShotReport_AimOnTargetChance_IgnoringPosture_Patch.Eva = VanillaCombatMod.settings.Evasion;
+            ShotReport_AimOnTargetChance_IgnoringPosture_Patch.baseEvasion = VanillaCombatMod.settings.EvasionScale;
+            ShotReport_AimOnTargetChance_IgnoringPosture_Patch.minSpeed = VanillaCombatMod.settings.minSpeed;
+            ShotReport_AimOnTargetChance_IgnoringPosture_Patch.EvaAcc = VanillaCombatMod.settings.EvaAcc;
 
             Parrying.active = VanillaCombatMod.settings.Parry;
             Parrying.front = VanillaCombatMod.settings.ParryFront;
@@ -77,6 +77,7 @@ namespace VCR
 
             DamageWorker_Bullet.active = VanillaCombatMod.settings.BulletsWorker;
             DamageWorker_Bullet.flanking = VanillaCombatMod.settings.Flanking;
+            DamageWorker_Bullet.SPmax = VanillaCombatMod.settings.SPLimit;
             DamageWorker_Arrow.active = VanillaCombatMod.settings.ArrowsWorker;
             DamageWorker_Arrow.flanking = VanillaCombatMod.settings.Flanking;
         }
@@ -119,8 +120,8 @@ namespace VCR
         public string acctemp = "5";
 
         public bool Evasion = false;
-        public float EvasionScale = 0.5f;
-        public string evatemp = "0.5";
+        public float EvasionScale = 0.8f;
+        public string evatemp = "0.8";
         public float minSpeed = 2.5f;
         public string minSpeedtemp = "2.5";
         public bool EvaAcc = true;
@@ -132,6 +133,8 @@ namespace VCR
         public string pSideTemp = "1";
 
         public bool BulletsWorker = false;
+        public float SPLimit = 10f;
+        public string SPLimitTemp = "10";
         public bool ArrowsWorker = false;
         public bool Flanking = false;
 
@@ -154,8 +157,8 @@ namespace VCR
             Scribe_Values.Look(ref acctemp, "acctemp", "5");
             
             Scribe_Values.Look(ref Evasion, "Evasion", false);
-            Scribe_Values.Look(ref EvasionScale, "EvasionScale", 0.5f);
-            Scribe_Values.Look(ref evatemp, "evatemp", "0.5");
+            Scribe_Values.Look(ref EvasionScale, "EvasionScale", 0.8f);
+            Scribe_Values.Look(ref evatemp, "evatemp", "0.8");
             Scribe_Values.Look(ref minSpeed, "minSpeed", 2.5f);
             Scribe_Values.Look(ref minSpeedtemp, "minSpeedtemp", "2.5");
             Scribe_Values.Look(ref EvaAcc, "EvaAcc", true);
@@ -165,6 +168,7 @@ namespace VCR
             Scribe_Values.Look(ref ParryFront, "ParryFront", 1);
 
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
+            Scribe_Values.Look(ref SPLimit, "SPLimit", 10f);
             Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker", false);
             Scribe_Values.Look(ref Flanking, "Flanking", false);
 
@@ -237,7 +241,7 @@ namespace VCR
             ArmorScale = value;
             listingStandard.Gap();
             var value2 = PenetrationScale;
-            listingStandard.SliderLabeled("VCR.PenetrationScale".Translate(value2), ref value2, value2.ToString(), 0.001f, 5, "VCR.PenScaleTooltip".Translate());
+            listingStandard.SliderLabeled("VCR.PenetrationScale".Translate(value2.ToString()), ref value2, value2.ToString(), 0.001f, 5, "VCR.PenScaleTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value2, ref pentemp, 0.001f, 5);
             PenetrationScale = value2;
             listingStandard.End();
@@ -261,12 +265,12 @@ namespace VCR
             listingStandard.CheckboxLabeled("VCR.Evasion".Translate(), ref Evasion, "VCR.Evatooltip".Translate());
             listingStandard.Gap();
             var value4 = EvasionScale;
-            listingStandard.SliderLabeled("VCR.EvasionScale".Translate(value4), ref value4, value4.ToString(), 0, 1, "VCR.EvaScaleTooltip".Translate());
+            listingStandard.SliderLabeled("VCR.EvasionScale".Translate(value4.ToString()), ref value4, value4.ToString(), 0, 1, "VCR.EvaScaleTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value4, ref evatemp, 0, 1);
             EvasionScale = value4;
             listingStandard.Gap();
             var value5 = minSpeed;
-            listingStandard.SliderLabeled("VCR.MinSpeed".Translate(value5), ref value5, value5.ToString(), 0, 30, "VCR.MinSpeedTooltip".Translate());
+            listingStandard.SliderLabeled("VCR.MinSpeed".Translate(value5.ToString()), ref value5, value5.ToString(), 0, 30, "VCR.MinSpeedTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value5, ref minSpeedtemp, 0, 30);
             minSpeed = value5;
             listingStandard.Gap();
@@ -280,12 +284,12 @@ namespace VCR
             listingStandard.CheckboxLabeled("VCR.Parry".Translate(), ref Parry, "VCR.Parrytooltip".Translate());
             listingStandard.Gap();
             var value6 = ParryFront;
-            listingStandard.SliderLabeled("VCR.ParryFront".Translate(value6), ref value6, value6.ToString(), 0, 5, "VCR.ParryFrontTooltip".Translate());
+            listingStandard.SliderLabeled("VCR.ParryFront".Translate(value6.ToString()), ref value6, value6.ToString(), 0, 5, "VCR.ParryFrontTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value6, ref pFrontTemp, 0, 5);
             ParryFront = value6;
             listingStandard.Gap();
             var value7 = ParrySide;
-            listingStandard.SliderLabeled("VCR.ParrySide".Translate(value7), ref value7, value7.ToString(), 0, 5, "VCR.ParrySideTooltip".Translate());
+            listingStandard.SliderLabeled("VCR.ParrySide".Translate(value7.ToString()), ref value7, value7.ToString(), 0, 5, "VCR.ParrySideTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value7, ref pSideTemp, 0, 5);
             ParrySide = value7;
             listingStandard.End();
@@ -295,6 +299,11 @@ namespace VCR
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             listingStandard.CheckboxLabeled("VCR.BulletsWorker".Translate(), ref BulletsWorker, "VCR.BWorkerTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.Label("VCR.SPLimit".Translate(), -1, "VCR.SPTooltip".Translate());
+            var value8 = SPLimit;
+            listingStandard.TextFieldNumeric(ref value8, ref SPLimitTemp, 1);
+            SPLimit = value8;
             listingStandard.Gap();
             listingStandard.CheckboxLabeled("VCR.ArrowsWorker".Translate(), ref ArrowsWorker, "VCR.AWorkerTooltip".Translate());
             listingStandard.Gap();

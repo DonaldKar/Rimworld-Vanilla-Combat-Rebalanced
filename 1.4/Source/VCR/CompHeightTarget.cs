@@ -62,7 +62,7 @@ namespace VCR
         public Pawn Pawn => parent as Pawn;
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            if (parent.Faction == Faction.OfPlayer && (Pawn == null || Pawn.Drafted))
+            if (VanillaCombatMod.settings.Flanking && parent.Faction == Faction.OfPlayer && (Pawn == null || Pawn.Drafted))
                 yield return TargetingModesUtility.SetTargetModeCommand(this);
         }
 

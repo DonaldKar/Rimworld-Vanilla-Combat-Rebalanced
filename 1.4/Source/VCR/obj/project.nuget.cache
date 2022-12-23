@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "53Q1/hhXhWqDMfnrfi7/JIqY/Axu4aV1UGsHprGZugxIf4hIInrtXlyFxqcbHRgFI3001dxi/lPiF2P9T+HChQ==",
+  "dgSpecHash": "34z2utVIdAcNkbWnn8hOIwqX3Xp+R3bxLGGzUWrFs2WDpCdzWR+AViIC0XlEjiIKbC0bAe5mD3YXN1GYgfvKdQ==",
   "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\RimWorld\\Mods\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
+  "projectFilePath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Vova\\.nuget\\packages\\krafs.rimworld.ref\\1.4.3517-beta\\krafs.rimworld.ref.1.4.3517-beta.nupkg.sha512",
-    "C:\\Users\\Vova\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512"
+    "C:\\Users\\karasd3\\.nuget\\packages\\krafs.rimworld.ref\\1.4.3563\\krafs.rimworld.ref.1.4.3563.nupkg.sha512",
+    "C:\\Users\\karasd3\\.nuget\\packages\\lib.harmony\\2.2.2\\lib.harmony.2.2.2.nupkg.sha512"
   ],
   "logs": []
 }
