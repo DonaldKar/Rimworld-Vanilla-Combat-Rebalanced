@@ -108,13 +108,13 @@ namespace VCR
 					var parryChance = Parrying.parryChance(meleeVerb, angle);
 					if (Parrying.surpriseattack(meleeVerb))
 					{
-						stringBuilder.AppendLine("VCR.surpriseAttack".Translate(1f.ToStringPercent()));//Melee Hit Chance: 100% (suprise attack)
+						stringBuilder.AppendLine("VCR.SurpriseAttack".Translate(1f.ToStringPercent()));//Melee Hit Chance: 100% (suprise attack)
 						__result = stringBuilder.ToString();
 						return;
 					}
 					if (Parrying.istargetimmobile(meleeVerb, target))
 					{
-						stringBuilder.AppendLine("VCR.immobileAttack".Translate(1f.ToStringPercent()));//Melee Hit Chance: 100% (Target Immobile)
+						stringBuilder.AppendLine("VCR.ImmobileAttack".Translate(1f.ToStringPercent()));//Melee Hit Chance: 100% (Target Immobile)
 						__result = stringBuilder.ToString();
 						return;
 					}
