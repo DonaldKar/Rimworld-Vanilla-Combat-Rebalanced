@@ -64,5 +64,14 @@ namespace VCR
             }
             return factor;
         }
+        public static float statpushMelee(float factor, Thing caster)
+        {
+            if (VanillaCombatMod.settings.Flanking)
+            {
+                float shootstat = Mathf.Max(1, (StatDefOf.MeleeHitChance.Worker.GetValue(StatRequest.For(caster), false)) / AccScale);//caster.GetStatValue(StatDefOf.ShootingAccuracyPawn, false): caster.GetStatValue(StatDefOf.ShootingAccuracyTurret,false));
+                factor = 1 - Mathf.Pow(1 - factor, shootstat);
+            }
+            return factor;
+        }
     }
 }

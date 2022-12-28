@@ -1,7 +1,10 @@
-﻿using RimWorld;
+﻿using HarmonyLib;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -107,6 +110,11 @@ namespace VCR
             float a = relBodychance(target, side, damDef, height, tag, depth, partParent);
             return ShotReport_HitReportFor_Patch.statpush(a, caster);
         }//adjustment of hit chance according to pawn's skill
+        public static float ChanceWithPawnMelee(Thing caster, Pawn target, BodyPartGroupDef side, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
+        {
+            float a = relBodychance(target, side, damDef, height, tag, depth, partParent);
+            return ShotReport_HitReportFor_Patch.statpushMelee(a, caster);
+        }//adjustment of hit chance according to pawn's skill
         public static BodyPartRecord flank(Thing caster, float angle, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
         {
             BodyPartGroupDef side = Side(angle, target);
@@ -123,6 +131,60 @@ namespace VCR
             }
             return null;
         }//"worker" hooks into damage worker and outputs the hit target, if you fail hit of target, it rolls once more to hit a part on that side with any height
+
+        public static BodyPartRecord flankMelee(Thing caster, float angle, Pawn target, DamageDef damDef, BodyPartHeight height = BodyPartHeight.Undefined, BodyPartTagDef tag = null, BodyPartDepth depth = BodyPartDepth.Undefined, BodyPartRecord partParent = null)
+        {
+            BodyPartGroupDef side = Side(angle, target);
+            if (Rand.Chance(ChanceWithPawnMelee(caster, target, side, damDef, height, tag, depth, partParent)))
+            {
+                if (GetNotMissingPartsWithGroup(target, height, depth, tag, partParent, side).TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs * x.def.GetHitChanceFactorFor(damDef), out var result))
+                {
+                    return result;
+                }
+            }
+            else if (GetNotMissingPartsWithGroup(target, BodyPartHeight.Undefined, depth, tag, partParent, side).TryRandomElementByWeight((BodyPartRecord x) => x.coverageAbs, out var result))
+            {
+                return result;
+            }
+            return null;
+        }
+        public static bool MeleeFlanking;
+        public static BodyPartRecord MeleeFlankHandler(HediffSet hediffset, DamageDef def, BodyPartHeight height, BodyPartDepth depth, BodyPartRecord parentpart, DamageInfo dinfo)
+        {
+            if (MeleeFlanking)
+            {
+                var targetHeight = dinfo.Instigator.GetTargetHeight();
+                return flankMelee(dinfo.Instigator, dinfo.Angle, (Pawn)dinfo.IntendedTarget, def, targetHeight, null, depth, parentpart);
+            }
+            return hediffset.GetRandomNotMissingPart(def, height, depth, parentpart);
+        }
+    }
+    [HarmonyPatch]
+    public static class MeleeFlankingTranspiler
+    {
+        static IEnumerable<MethodBase> TargetMethods()
+        {
+            yield return AccessTools.Method(typeof(DamageWorker_Bite), "ChooseHitPart");
+            yield return AccessTools.Method(typeof(DamageWorker_Blunt), "ChooseHitPart");
+            yield return AccessTools.Method(typeof(DamageWorker_Cut), "ChooseHitPart");
+            yield return AccessTools.Method(typeof(DamageWorker_Scratch), "ChooseHitPart");
+            yield return AccessTools.Method(typeof(DamageWorker_Stab), "ChooseHitPart");
+        }
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            MethodBase from = AccessTools.Method(typeof(HediffSet), "GetRandomNotMissingPart");
+            MethodBase to = AccessTools.Method(typeof(Flanking), "MeleeFlankHandler");
+
+            foreach (CodeInstruction instruction in instructions)
+            {
+                if (instruction.operand as MethodBase == from)//find method to replace
+                {
+                    yield return new CodeInstruction(OpCodes.Ldarga_S);
+                    yield return new CodeInstruction(OpCodes.Call, to);
+                }
+                yield return instruction;
+            }
+        }
     }
     [DefOf]
     public static class SideGroupOf

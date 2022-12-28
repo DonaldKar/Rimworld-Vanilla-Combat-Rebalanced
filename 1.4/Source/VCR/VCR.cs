@@ -80,6 +80,8 @@ namespace VCR
             DamageWorker_Bullet.SPmax = VanillaCombatMod.settings.SPLimit;
             DamageWorker_Arrow.active = VanillaCombatMod.settings.ArrowsWorker;
             DamageWorker_Arrow.flanking = VanillaCombatMod.settings.Flanking;
+            Flanking.MeleeFlanking = VanillaCombatMod.settings.MeleeFlanking;
+
         }
     }
     //settings
@@ -127,16 +129,17 @@ namespace VCR
         public bool EvaAcc = true;
 
         public bool Parry = false;
-        public float ParryFront = 1f;
-        public string pFrontTemp = "1";
-        public float ParrySide = 1f;
-        public string pSideTemp = "1";
+        public float ParryFront = 2f;
+        public string pFrontTemp = "2";
+        public float ParrySide = 2f;
+        public string pSideTemp = "2";
 
         public bool BulletsWorker = false;
         public float SPLimit = 10f;
         public string SPLimitTemp = "10";
         public bool ArrowsWorker = false;
         public bool Flanking = false;
+        public bool MeleeFlanking = false;
 
         public bool HandFeetPatch = false;
         public bool AcidHeatPatch = false;
@@ -164,13 +167,14 @@ namespace VCR
             Scribe_Values.Look(ref EvaAcc, "EvaAcc", true);
             
             Scribe_Values.Look(ref Parry, "Parry", false);
-            Scribe_Values.Look(ref ParrySide, "ParrySide", 1);
-            Scribe_Values.Look(ref ParryFront, "ParryFront", 1);
+            Scribe_Values.Look(ref ParrySide, "ParrySide", 2);
+            Scribe_Values.Look(ref ParryFront, "ParryFront", 2);
 
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
             Scribe_Values.Look(ref SPLimit, "SPLimit", 10f);
             Scribe_Values.Look(ref ArrowsWorker, "ArrowsWorker", false);
             Scribe_Values.Look(ref Flanking, "Flanking", false);
+            Scribe_Values.Look(ref MeleeFlanking, "MeleeFlanking", false);
 
             Scribe_Values.Look(ref HandFeetPatch, "HandFeetPatch", false);
             Scribe_Values.Look(ref AcidHeatPatch, "AcidHeatPatch", false);
@@ -308,6 +312,8 @@ namespace VCR
             listingStandard.CheckboxLabeled("VCR.ArrowsWorker".Translate(), ref ArrowsWorker, "VCR.AWorkerTooltip".Translate());
             listingStandard.Gap();
             listingStandard.CheckboxLabeled("VCR.Flanking".Translate(), ref Flanking, "VCR.FlankingTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.MeleeFlank".Translate(), ref MeleeFlanking, "VCR.MeleeFlankTooltip".Translate());
             listingStandard.End();
         }
         public void XmlSettings(Rect inRect)

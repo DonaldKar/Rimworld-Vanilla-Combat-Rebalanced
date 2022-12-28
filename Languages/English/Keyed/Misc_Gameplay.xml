@@ -73,8 +73,23 @@
 	<VCR.Top>Top</VCR.Top>
 	
 	<VCR.CommandSetTargetingMode>Target mode: {0}</VCR.CommandSetTargetingMode>
-	<VCR.CommandSetTargetingModeDesc>placeholder</VCR.CommandSetTargetingModeDesc>
-	<VCR.MeleeHitChance>Melee hit chance: {0}</VCR.MeleeHitChance>
-	<VCR.TargetDodgeChance>Melee target dodge chance: {0}</VCR.TargetDodgeChance>
 	<VCR.CommandSetTargetingModeDesc>Attacks from this pawn will be weighted to hit parts with this height.</VCR.CommandSetTargetingModeDesc>
+	
+	<VCR.MeleeHitTotal>Final Melee Hit Chance: {0}</VCR.MeleeHitTotal>
+
+	<VCR.MeleeHitChance>Melee hit chance: {0}</VCR.MeleeHitChance>
+	<VCR.MeleeHitChanceBase>Base Melee hit chance: {0}</VCR.MeleeHitChanceBase>
+	<VCR.MeleeOffset>Offset for </VCR.MeleeOffset>
+	<VCR.OutdoorsLit>outdoors and daytime: {0}</VCR.OutdoorsLit>
+	<VCR.OutdoorsDark>outdoors and night-time: {0}</VCR.OutdoorsDark>
+	<VCR.IndoorsLit>indoors and lit: {0}</VCR.IndoorsLit>
+	<VCR.IndoorsDark>indoors and dark: {0}</VCR.IndoorsDark>
+	<VCR.TargetCannotDodge>Target Dodge Chance: 0% (not in melee)</VCR.TargetCannotDodge>
+	<VCR.TargetDodgeChance>Target Dodge Chance: {0}</VCR.TargetDodgeChance>
+	<VCR.MeleeDodgeChanceBase>Base Dodge Chance: {0}</VCR.MeleeDodgeChanceBase>
+	<VCR.SupriseAttack>Melee Hit Chance: 100% (suprise attack)</VCR.SupriseAttack>
+	<VCR.ImmobileAttack>Melee Hit Chance: 100% (Target Immobile)</VCR.ImmobileAttack>
+	<VCR.TargetParryChance>Enemy Parry Chance: {0}</VCR.TargetParryChance>
+
+
 </LanguageData>
