@@ -58,7 +58,7 @@ namespace VCR
                     return SideGroupOf.Center;//contains all that cover left and right or torso
                 case RotationDirection.Opposite:
                     return null;
-                default: 
+                default:
                     return null;
             }
         }//grab side to use
@@ -149,12 +149,12 @@ namespace VCR
             return null;
         }
         public static bool MeleeFlanking;
-        public static BodyPartRecord MeleeFlankHandler(HediffSet hediffset, DamageDef def, BodyPartHeight height, BodyPartDepth depth, BodyPartRecord parentpart, DamageInfo dinfo)
+        public static BodyPartRecord MeleeFlankHandler(HediffSet hediffset, DamageDef def, BodyPartHeight height, BodyPartDepth depth, BodyPartRecord parentpart, ref DamageInfo dinfo, Pawn pawn)
         {
             if (MeleeFlanking)
             {
                 var targetHeight = dinfo.Instigator.GetTargetHeight();
-                return flankMelee(dinfo.Instigator, dinfo.Angle, (Pawn)dinfo.IntendedTarget, def, targetHeight, null, depth, parentpart);
+                return flankMelee(dinfo.Instigator, dinfo.Angle, pawn, def, targetHeight, null, depth, parentpart);
             }
             return hediffset.GetRandomNotMissingPart(def, height, depth, parentpart);
         }
@@ -179,8 +179,10 @@ namespace VCR
             {
                 if (instruction.operand as MethodBase == from)//find method to replace
                 {
-                    yield return new CodeInstruction(OpCodes.Ldarga_S);
+                    yield return new CodeInstruction(OpCodes.Ldarga_S, 1);
+                    yield return new CodeInstruction(OpCodes.Ldarg_2);
                     yield return new CodeInstruction(OpCodes.Call, to);
+                    continue;
                 }
                 yield return instruction;
             }

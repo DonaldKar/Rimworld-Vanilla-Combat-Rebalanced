@@ -11,7 +11,11 @@
 		</match>
 	</Operation>
 	<!--acid damage to heat-->
-	<Operation Class="VCR.PatchOperationXmlSetting" MayRequire="ludeon.rimworld.biotech">
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ludeon.Rimworld.Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
 		<setting>AcidHeatPatch</setting>
 		<match Class="PatchOperationReplace">
 			<xpath>Defs/DamageDef[defName="AcidBurn"]/armorCategory</xpath>
@@ -19,6 +23,7 @@
 				<armorCategory>Heat</armorCategory>
 			</value>
 		</match>
+	  </match>
 	</Operation>
 	<!--gloves and boots patcher-->
 	<Operation Class="VCR.PatchOperationXmlSetting">
@@ -85,13 +90,13 @@
 	<Operation Class="PatchOperationSequence">
 		<operations>
 			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//li[customLabel[not(contains(text(),'left') or contains(text(),'Left'))]]/groups/li</xpath>
+				<xpath>Defs/BodyDef//li[not(customLabel) or customLabel[not(contains(text(),'left') or contains(text(),'Left'))]]/groups/li</xpath>
 				<value>
 					<li>Right</li>
 				</value>
 			</li>
 			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//li[customLabel[not(contains(text(),'right') or contains(text(),'Right'))]]/groups/li</xpath>
+				<xpath>Defs/BodyDef//li[not(customLabel) or customLabel[not(contains(text(),'right') or contains(text(),'Right'))]]/groups/li</xpath>
 				<value>
 					<li>Left</li>
 				</value>

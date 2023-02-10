@@ -17,12 +17,22 @@ namespace VCR
 			{
 				return base.ChooseHitPart(dinfo, pawn);
 			}
+			BodyPartRecord randomNotMissingPart;
 			if (flanking)
 			{
 				var targetHeight = dinfo.Instigator.GetTargetHeight();
-				return Flanking.flank(dinfo.Instigator, dinfo.Angle, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
+				randomNotMissingPart = Flanking.flank(dinfo.Instigator, dinfo.Angle, pawn, dinfo.Def, targetHeight, null, dinfo.Depth, null);
+				if (randomNotMissingPart.depth != BodyPartDepth.Inside && Rand.Chance(def.stabChanceOfForcedInternal))
+				{
+					BodyPartRecord randomNotMissingPart2 = Flanking.flank(dinfo.Instigator, dinfo.Angle, pawn, dinfo.Def, BodyPartHeight.Undefined, null, BodyPartDepth.Inside, randomNotMissingPart);
+					if (randomNotMissingPart2 != null)
+					{
+						return randomNotMissingPart2;
+					}
+				}
+				return randomNotMissingPart;
 			}
-			BodyPartRecord randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
+			randomNotMissingPart = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, dinfo.Height, dinfo.Depth);
 			if (randomNotMissingPart.depth != BodyPartDepth.Inside && Rand.Chance(def.stabChanceOfForcedInternal))
 			{
 				BodyPartRecord randomNotMissingPart2 = pawn.health.hediffSet.GetRandomNotMissingPart(dinfo.Def, BodyPartHeight.Undefined, BodyPartDepth.Inside, randomNotMissingPart);

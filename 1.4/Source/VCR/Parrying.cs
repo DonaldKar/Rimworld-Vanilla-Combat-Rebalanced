@@ -17,15 +17,15 @@ namespace VCR
         public static float front = 1;
         public static float side = 1;
         public static bool active = false;
-        public static float parryChance(Verb_MeleeAttack verb, float angle)
+        public static float parryChance(Verb_MeleeAttack verb, Thing targetThing, float angle)
         {
             if (!active)
             {
-                return 1;
+                return 0;
             }
             //Log.Message("parry?");
             Pawn caster = verb.CasterPawn;
-            Pawn target = verb.CurrentTarget.Thing as Pawn;
+            Pawn target = targetThing as Pawn;
             if (target == null)
             {
                 return 0;
@@ -73,10 +73,13 @@ namespace VCR
             }
         }
 
-        public delegate bool surpriseAttack(Verb_MeleeAttack verb_MeleeAttack);
-        public static readonly surpriseAttack surpriseattack =
-            AccessTools.MethodDelegate<surpriseAttack>(AccessTools.PropertyGetter(typeof(Verb_MeleeAttack), "surpriseAttack"));
+        public static bool surpriseattack(Verb_MeleeAttack verb_MeleeAttack)
+        {
+            var Variable = typeof(Verb_MeleeAttack).GetField("surpriseAttack", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(verb_MeleeAttack);
+            return (bool)Variable;
 
+        }
+       
         public delegate bool IsTargetImmobile(Verb_MeleeAttack verb_MeleeAttack, LocalTargetInfo target);
         public static readonly IsTargetImmobile istargetimmobile =
             AccessTools.MethodDelegate<IsTargetImmobile>(AccessTools.Method(typeof(Verb_MeleeAttack), "IsTargetImmobile"));
@@ -110,7 +113,8 @@ namespace VCR
             {
                 return false;
             }
-            RotationDirection rot = Flanking.getdirection(caster, target);
+            float angle = Quaternion.LookRotation((target.Position.ToVector3() - caster.Position.ToVector3()).Yto0()).eulerAngles.y;
+            RotationDirection rot = Flanking.getdirection(angle, target);
             float d = (rot.Equals(RotationDirection.None) || target.Downed) ? 0 : rot.Equals(RotationDirection.Opposite) ? front : side;//assign setting based direction and settings
             if (d == 0)//if back hit, cant parry, if downed, cant parry
             {
@@ -127,6 +131,25 @@ namespace VCR
             //Log.Message("parry success");
             result = false;
             soundDef = SoundParry(verb);
+            EffecterDef effect;
+            if (target.equipment.Primary != null && target.equipment.Primary.Stuff != null)
+            {
+                effect = target.equipment.Primary.Stuff.stuffProps.categories.Contains(StuffCategoryDefOf.Metallic) ? EffecterDefOf.Deflect_Metal : EffecterDefOf.Deflect_General;
+            }
+            else
+            {
+                effect = EffecterDefOf.Deflect_General;
+            }
+            if (target.health.deflectionEffecter == null || target.health.deflectionEffecter.def != effect)
+            {
+                if (target.health.deflectionEffecter != null)
+                {
+                    target.health.deflectionEffecter.Cleanup();
+                    target.health.deflectionEffecter = null;
+                }
+                target.health.deflectionEffecter = effect.Spawn();
+            }
+			target.Drawer.Notify_MeleeAttackOn(caster);
             MoteMaker.ThrowText(target.DrawPos, target.Map, "VCR.TextMote_Parry".Translate(), 1.9f);
             verb.CreateCombatLog((ManeuverDef maneuver) => maneuver.combatLogRulesDeflect, alwaysShow: false);
             return true;
@@ -155,11 +178,11 @@ namespace VCR
                     return verb.EquipmentSource.Stuff.stuffProps.soundMeleeHitBlunt;
                 }
             }
-            if (verb.CasterPawn != null && !verb.CasterPawn.def.race.soundMeleeHitPawn.NullOrUndefined())
+            if (verb.CasterPawn != null && !verb.CasterPawn.def.race.soundMeleeHitBuilding.NullOrUndefined())
             {
-                return verb.CasterPawn.def.race.soundMeleeHitPawn;
+                return verb.CasterPawn.def.race.soundMeleeHitBuilding;
             }
-            return SoundDefOf.Pawn_Melee_Punch_HitPawn;
+            return SoundDefOf.Pawn_Melee_Punch_HitBuilding;
         }
 
     }

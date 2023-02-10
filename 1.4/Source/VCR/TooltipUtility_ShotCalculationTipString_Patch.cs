@@ -105,7 +105,7 @@ namespace VCR
                     var nonMissChance = getNonMissChance(meleeVerb, target);
                     var dodgeChance = getDodgeChance(meleeVerb, target);
 					float angle = Quaternion.LookRotation((target.Position.ToVector3() - pawn.Position.ToVector3()).Yto0()).eulerAngles.y;
-					var parryChance = Parrying.parryChance(meleeVerb, angle);
+					var parryChance = Parrying.parryChance(meleeVerb, target, angle);
 					if (Parrying.surpriseattack(meleeVerb))
 					{
 						stringBuilder.AppendLine("VCR.SurpriseAttack".Translate(1f.ToStringPercent()));//Melee Hit Chance: 100% (suprise attack)
@@ -139,7 +139,7 @@ namespace VCR
 						BodyPartHeight height = pawn.GetTargetHeight();
 						if (height != BodyPartHeight.Undefined && target is Pawn)
 						{
-							stringBuilder.AppendLine("   " + "VCR.HeightChance".Translate() + height.ToStringHuman() + ": " + Flanking.ChanceWithPawnMelee(pawn, (Pawn)target, side, meleeVerb.GetDamageDef(), height, null,BodyPartDepth.Outside).ToStringPercent());
+							stringBuilder.AppendLine("   " + "VCR.HeightChance".Translate() + height.ToStringHuman() + ": " + Flanking.ChanceWithPawnMelee(pawn, (Pawn)target, side, meleeVerb.GetDamageDef(), height, null, BodyPartDepth.Outside).ToStringPercent());
 						}
 					}
 
