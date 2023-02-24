@@ -22,7 +22,7 @@ namespace VCR
         static VCR()
         {
 
-            //Harmony.DEBUG = true;
+            Harmony.DEBUG = true;
             new Harmony("VCR.Mod").PatchAll();
             SetXmlSettings();
             ApplySettings();
@@ -121,6 +121,11 @@ namespace VCR
         public float AccuracyScale = 5f;
         public string acctemp = "5";
 
+        public bool UseFiringArc = false;
+        public float FiringArc = 45;
+        public string arctemp = "45";
+        public int ArcType = 0;
+
         public bool Evasion = false;
         public float EvasionScale = 0.8f;
         public string evatemp = "0.8";
@@ -158,7 +163,13 @@ namespace VCR
             Scribe_Values.Look(ref AdvancedAccuracy, "AdvancedAccuracy", false);
             Scribe_Values.Look(ref AccuracyScale, "AccuracyScale", 5f);
             Scribe_Values.Look(ref acctemp, "acctemp", "5");
-            
+
+            Scribe_Values.Look(ref UseFiringArc, "UseFiringArc", false);
+            Scribe_Values.Look(ref FiringArc, "FiringArc", 45f);
+            Scribe_Values.Look(ref arctemp, "arctemp", "45");
+            Scribe_Values.Look(ref ArcType, "ArcType", 0);
+
+
             Scribe_Values.Look(ref Evasion, "Evasion", false);
             Scribe_Values.Look(ref EvasionScale, "EvasionScale", 0.8f);
             Scribe_Values.Look(ref evatemp, "evatemp", "0.8");
@@ -260,6 +271,17 @@ namespace VCR
             listingStandard.SliderLabeled("VCR.AccuracyScale".Translate(value3), ref value3, value3.ToString(), 1, 60, "VCR.AccScaleTooltip".Translate());
             listingStandard.TextFieldNumeric(ref value3, ref acctemp, 1, 60);
             AccuracyScale = value3;
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.UseFiringArc".Translate(), ref UseFiringArc, "VCR.UseArctooltip".Translate());
+            listingStandard.Gap();
+            var value4 = FiringArc;
+            listingStandard.SliderLabeled("VCR.FiringArc".Translate(value4), ref value4, value4.ToString(), 1, 179, "VCR.FiringArcTooltip".Translate());
+            listingStandard.TextFieldNumeric(ref value4, ref arctemp, 1, 179);
+            FiringArc = value4;
+            listingStandard.Gap();
+            var value5 = ArcType;
+            listingStandard.SliderLabeled("VCR.ArcType".Translate(value5), ref value5, value5.ToString(), 0, 5, "VCR.ArcTypeTooltip".Translate());
+            ArcType = value5;
             listingStandard.End();
         }
         public void EvasionTab(Rect inRect)

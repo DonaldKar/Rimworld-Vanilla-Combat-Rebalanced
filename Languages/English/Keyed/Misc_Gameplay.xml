@@ -16,6 +16,12 @@
 	<VCR.AAcctooltip>Shooter Skill now affects weapon and weather accuracy, a good shooter should be able to overcome any problems with a gun or weather condition. Turret, smoke, and cover accuracy are not affected.</VCR.AAcctooltip>
 	<VCR.AccuracyScale>Accuracy Bonus Scaling: {0}</VCR.AccuracyScale>
 	<VCR.AccScaleTooltip>Minimum accuracy before advanced accuracy calculations are activated, inversely related to accuracy per point\n\nWith a higher threshold, each point above the threshold has a smaller effect than with a lower threshold\n\nRecommended accuracy: 5</VCR.AccScaleTooltip>
+	<VCR.UseFiringArc>Restrict Missed Shots</VCR.UseFiringArc>
+	<VCR.UseArctooltip>the max distance of a miss will be restricted to a firing arc from the shooter</VCR.UseArctooltip>
+	<VCR.FiringArc>Firing Arc Angle: {0}</VCR.FiringArc>
+	<VCR.FiringArcTooltip>The total angle in degrees where missed shots can land.\n\nThis value may not be completely accurate at extreme angles.\n\nDefault: 45</VCR.FiringArcTooltip>
+	<VCR.ArcType>Missed Shot Behavior Setting: {0}</VCR.ArcType>
+	<VCR.ArcTypeTooltip>Options on how the missed shots are restricted. Recommended settings: 0 or 3 \n\n0: all shots are scaled with distance without restrictions\n\n1: all shots are scaled with distance but are capped at the vanilla max value\n\n2: only close shots scale with distance, far shots are the same as vanilla\n\n3: close shots outside of arc are set to max possible distance inside arc instead of scaled with distance, far shots are scaled with distance\n\n4: close shots outside of arc are set to max, far shots are scaled with distance, but are capped at the vanilla max value\n\n5: close shots outside of arc are set to max, far shots are the same as vanilla</VCR.ArcTypeTooltip>
 
 	<VCR.EvasionTab>Evasion</VCR.EvasionTab>
 	<VCR.Evasion>Enable Evasion</VCR.Evasion>
@@ -31,15 +37,15 @@
 	<VCR.Parry>Enable Parry</VCR.Parry>
 	<VCR.Parrytooltip>Pawns can parry a melee attack if they have a weapon equipped based on the melee hit chance of the attacker and defender</VCR.Parrytooltip>
 	<VCR.ParryFront>Front Defence: {0}</VCR.ParryFront>
-	<VCR.ParryFrontTooltip>The effectiveness that a pawn can parry an attack coming from the front.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1</VCR.ParryFrontTooltip>
+	<VCR.ParryFrontTooltip>The effectiveness that a pawn can parry an attack coming from the front.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 2</VCR.ParryFrontTooltip>
 	<VCR.ParrySide>Side Defence: {0}</VCR.ParrySide>
-	<VCR.ParrySideTooltip>The effectiveness that a pawn can parry an attack coming from the side.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1</VCR.ParrySideTooltip>
+	<VCR.ParrySideTooltip>The effectiveness that a pawn can parry an attack coming from the side.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 2</VCR.ParrySideTooltip>
 	
 	<VCR.DamageWorkerTab>Damage Workers</VCR.DamageWorkerTab>
 	<VCR.BulletsWorker>Custom Bullet Damage Worker</VCR.BulletsWorker>
 	<VCR.BWorkerTooltip>Bullets now have simulated fragmentation, pass through, and mushrooming damage behaviors based on the stopping power of the weapon.\n\nMultiple projectiles on the same weapon will use the stopping power value of the first projectile.</VCR.BWorkerTooltip>
 	<VCR.SPLimit>Stopping Power Bonus Limit</VCR.SPLimit>
-	<VCR.SPTooltip>Some modded weapons have extremely high stopping power values leading to unexpectedly high damage values. This setting limits the bonus for weapons above this value.</VCR.SPTooltip>
+	<VCR.SPTooltip>Some modded weapons have extremely high stopping power values leading to unexpectedly high damage values. This setting limits the bonus for weapons above this value.\n\nDefault: 10</VCR.SPTooltip>
 	<VCR.ArrowsWorker>Custom Arrow Damage Worker</VCR.ArrowsWorker>
 	<VCR.AWorkerTooltip>Arrows now are more likely to hit internal body parts or deal extra cuts if an outside body part is hit.</VCR.AWorkerTooltip>
 	<VCR.Flanking>Enable Ranged Flanking</VCR.Flanking>

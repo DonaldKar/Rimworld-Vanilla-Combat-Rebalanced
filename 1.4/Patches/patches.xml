@@ -30,11 +30,9 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands')] and not(./li[contains(.,'Arms')])]/../layers</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms')])]/../layers/li[contains(.,'OnSkin')]</xpath>
 			<value>
-				<layers>
-					<li>Overhead</li>
-				</layers>
+				<li>Overhead</li>
 			</value>
 		</match>
 	</Operation>
@@ -42,11 +40,29 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
 			<value>
-				<layers>
-					<li>Overhead</li>
-				</layers>
+				<li>EyeCover</li>
+			</value>
+		</match>
+	</Operation>
+	<Operation Class="VCR.PatchOperationXmlSetting">
+		<success>Always</success>
+		<setting>HandFeetPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers/li[contains(.,'OnSkin')]</xpath>
+			<value>
+				<li>Overhead</li>
+			</value>
+		</match>
+	</Operation>
+	<Operation Class="VCR.PatchOperationXmlSetting">
+		<success>Always</success>
+		<setting>HandFeetPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
+			<value>
+				<li>EyeCover</li>
 			</value>
 		</match>
 	</Operation>
