@@ -105,7 +105,7 @@ namespace VCR
             {
                 return false;
             }
-            if (!target.equipment?.HasAnything() ?? false)//check if there is something to block with
+            if (!(target.equipment?.HasAnything() ?? false))//check if there is something to block with
             {
                 return false;
             }

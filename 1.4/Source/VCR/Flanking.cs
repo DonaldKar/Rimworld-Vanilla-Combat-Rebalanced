@@ -44,7 +44,7 @@ namespace VCR
             Rot4 t = target.Rotation;
             return Rot4.GetRelativeRotation(c, t);//none=rear, opposite=front, clockwise=right, counterclockwise=left
         }
-
+        [Obsolete]
         public static BodyPartGroupDef Side(Thing Caster, Thing Target)
         {
             RotationDirection a = getdirection(Caster, Target);
