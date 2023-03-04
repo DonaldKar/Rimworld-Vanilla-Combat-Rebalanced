@@ -105,26 +105,44 @@
 	<!--flanking seeder-->
 	<Operation Class="PatchOperationSequence">
 		<operations>
-			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//li[not(customLabel) or customLabel[not(contains(text(),'left') or contains(text(),'Left'))]]/groups/li</xpath>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//li[def and not(groups)]</xpath>
+				<value>
+					<groups/>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//li[def][not(customLabel) or customLabel[not(contains(text(),'left') or contains(text(),'Left'))]]/groups</xpath>
 				<value>
 					<li>Right</li>
 				</value>
 			</li>
-			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//li[not(customLabel) or customLabel[not(contains(text(),'right') or contains(text(),'Right'))]]/groups/li</xpath>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//li[def][not(customLabel) or customLabel[not(contains(text(),'right') or contains(text(),'Right'))]]/groups</xpath>
 				<value>
 					<li>Left</li>
 				</value>
 			</li>
-			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//groups[li[contains(text(),"Left")] and li[contains(text(),"Right")]]/li</xpath>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//groups[li[contains(text(),"Left")] and li[contains(text(),"Right")]]</xpath>
 				<value>
 					<li>Center</li>
 				</value>
 			</li>
-			<li Class="PatchOperationInsert">
-				<xpath>Defs/BodyDef//groups[li[contains(text(),"Torso")] and li[not(contains(text(),"Center"))]]/li</xpath>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//groups[li[contains(text(),"Torso")]]</xpath>
+				<value>
+					<li>Center</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef/corePart[not(groups)]</xpath>
+				<value>
+					<groups/>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef/corePart/groups</xpath>
 				<value>
 					<li>Center</li>
 				</value>
