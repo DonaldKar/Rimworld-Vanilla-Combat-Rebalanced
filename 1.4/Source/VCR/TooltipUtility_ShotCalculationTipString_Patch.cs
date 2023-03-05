@@ -104,7 +104,8 @@ namespace VCR
                     StringBuilder stringBuilder = new StringBuilder(__result);
                     var nonMissChance = getNonMissChance(meleeVerb, target);
                     var dodgeChance = getDodgeChance(meleeVerb, target);
-					float angle = Quaternion.LookRotation((target.Position.ToVector3() - pawn.Position.ToVector3()).Yto0()).eulerAngles.y;
+					Vector3 vector = (target.Position.ToVector3() - pawn.Position.ToVector3()).Yto0();
+					float angle = (vector!=Vector3.zero) ? Quaternion.LookRotation(vector).eulerAngles.y : -500f;
 					var parryChance = Parrying.parryChance(meleeVerb, target, angle);
 					if (Parrying.surpriseattack(meleeVerb))
 					{

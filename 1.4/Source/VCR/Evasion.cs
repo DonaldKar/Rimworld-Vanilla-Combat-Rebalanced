@@ -74,7 +74,9 @@ namespace VCR
                                     float ___factorFromShooterAndDist, float ___factorFromEquipment, float ___factorFromTargetSize, float ___factorFromWeather,
                                     float ___forcedMissRadius, float ___offsetFromDarkness, float ___factorFromCoveringGas,ShootLine ___shootLine)
         {
-            float angle = Quaternion.LookRotation((___shootLine.Dest.ToVector3() - ___shootLine.Source.ToVector3()).Yto0()).eulerAngles.y;
+
+            Vector3 vector = (___shootLine.Dest.ToVector3() - ___shootLine.Source.ToVector3()).Yto0();
+            float angle = (vector != Vector3.zero) ? Quaternion.LookRotation(vector).eulerAngles.y : -500f;
             //Log.Message(angle.ToString());
             if (ShotReport_HitReportFor_Patch.AAccuracy || ShotReport_AimOnTargetChance_IgnoringPosture_Patch.Eva||VanillaCombatMod.settings.Flanking)
             {

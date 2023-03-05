@@ -113,7 +113,8 @@ namespace VCR
             {
                 return false;
             }
-            float angle = Quaternion.LookRotation((target.Position.ToVector3() - caster.Position.ToVector3()).Yto0()).eulerAngles.y;
+            Vector3 vector = (target.Position.ToVector3() - caster.Position.ToVector3()).Yto0();
+            float angle = (vector != Vector3.zero) ? Quaternion.LookRotation(vector).eulerAngles.y : -500f;
             RotationDirection rot = Flanking.getdirection(angle, target);
             float d = (rot.Equals(RotationDirection.None) || target.Downed) ? 0 : rot.Equals(RotationDirection.Opposite) ? front : side;//assign setting based direction and settings
             if (d == 0)//if back hit, cant parry, if downed, cant parry

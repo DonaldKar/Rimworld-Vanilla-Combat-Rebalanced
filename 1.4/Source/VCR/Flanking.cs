@@ -15,6 +15,7 @@ namespace VCR
 
     public static class Flanking
     {
+        [Obsolete]
         public static RotationDirection getdirection(Thing caster, Thing target)
         {
             Rot4 c;
@@ -35,6 +36,10 @@ namespace VCR
         }
         public static RotationDirection getdirection(float angle, Thing target)
         {
+            if(angle == -500f)
+            {
+                return RotationDirection.Opposite;
+            }
             Rot4 c;
             if (target is Pawn && (target as Pawn).Downed)
             {
