@@ -89,7 +89,14 @@ namespace VCR
     [StaticConstructorOnStartup]
     public static class TargetingModesUtility
     {
-        private static Texture2D SetTargetingModeTex = ContentFinder<Texture2D>.Get("UI/SetTargetingMode");
+        private static Texture2D SetTargetingModeTexTop = ContentFinder<Texture2D>.Get("UI/SetTargetingMode/Top");
+
+        private static Texture2D SetTargetingModeTexMiddle = ContentFinder<Texture2D>.Get("UI/SetTargetingMode/Middle");
+
+        private static Texture2D SetTargetingModeTexBottom = ContentFinder<Texture2D>.Get("UI/SetTargetingMode/Bottom");
+
+        private static Texture2D SetTargetingModeTexNone = ContentFinder<Texture2D>.Get("UI/SetTargetingMode/None");
+
 
         public static readonly List<BodyPartHeight> allTargetingModes = Enum.GetValues(typeof(BodyPartHeight)).Cast<BodyPartHeight>().ToList();
 
@@ -111,10 +118,24 @@ namespace VCR
                 }
             }
         }
+        public static Texture2D TargetingTexture(BodyPartHeight height)
+        {
+            switch (height)
+            {
+                case BodyPartHeight.Top:
+                    return SetTargetingModeTexTop;
+                case BodyPartHeight.Middle:
+                    return SetTargetingModeTexMiddle;
+                case BodyPartHeight.Bottom:
+                    return SetTargetingModeTexBottom;
+                default:
+                    return SetTargetingModeTexNone;
+            }
+        }
         public static Command_SetTargetingMode SetTargetModeCommand(ITargetModeSettable settable) =>
             new Command_SetTargetingMode
             {
-                icon = SetTargetingModeTex,
+                icon = TargetingTexture(settable.GetTargetingMode()),
                 defaultLabel = "VCR.CommandSetTargetingMode".Translate(settable.GetTargetingMode().ToStringHuman()),
                 defaultDesc = "VCR.CommandSetTargetingModeDesc".Translate(),
                 settable = settable,
