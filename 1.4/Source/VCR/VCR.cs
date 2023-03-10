@@ -22,7 +22,7 @@ namespace VCR
         static VCR()
         {
 
-            Harmony.DEBUG = true;
+            //Harmony.DEBUG = true;
             new Harmony("VCR.Mod").PatchAll();
             SetXmlSettings();
             ApplySettings();
