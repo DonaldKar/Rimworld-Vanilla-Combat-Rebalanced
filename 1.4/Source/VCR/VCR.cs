@@ -56,6 +56,22 @@ namespace VCR
             {
                 XmlSettings.Add("GlassesHelmetPatch");
             }
+            if (VanillaCombatMod.settings.NoseMouthPatch)
+            {
+                XmlSettings.Add("NoseMouthPatch");
+            }
+            if (VanillaCombatMod.settings.MaskPatch)
+            {
+                XmlSettings.Add("MaskPatch");
+            }
+            if (VanillaCombatMod.settings.HeadsetPatch)
+            {
+                XmlSettings.Add("HeadsetPatch");
+            }
+            if (VanillaCombatMod.settings.ArrayHeadsetPatch)
+            {
+                XmlSettings.Add("ArrayHeadsetPatch");
+            }
         }
         public static void ApplySettings()
         {
@@ -82,6 +98,7 @@ namespace VCR
             DamageWorker_Arrow.flanking = VanillaCombatMod.settings.Flanking;
             Flanking.MeleeFlanking = VanillaCombatMod.settings.MeleeFlanking;
 
+            PawnRenderer_DrawApparel_Patch.setting = VanillaCombatMod.settings.ApparelTweaks;
         }
     }
     //settings
@@ -134,10 +151,10 @@ namespace VCR
         public bool EvaAcc = true;
 
         public bool Parry = false;
-        public float ParryFront = 2f;
-        public string pFrontTemp = "2";
-        public float ParrySide = 2f;
-        public string pSideTemp = "2";
+        public float ParryFront = 1.5f;
+        public string pFrontTemp = "1.5";
+        public float ParrySide = 1.5f;
+        public string pSideTemp = "1.5";
 
         public bool BulletsWorker = false;
         public float SPLimit = 10f;
@@ -150,6 +167,12 @@ namespace VCR
         public bool AcidHeatPatch = false;
         public bool ThumpBluntPatch = false;
         public bool GlassesHelmetPatch = false;
+        public bool NoseMouthPatch = false;
+        public bool MaskPatch = false;
+        public bool HeadsetPatch = false;
+        public bool ArrayHeadsetPatch = false;
+        public bool ApparelTweaks = false;
+
 
         public override void ExposeData()
         {
@@ -178,8 +201,8 @@ namespace VCR
             Scribe_Values.Look(ref EvaAcc, "EvaAcc", true);
             
             Scribe_Values.Look(ref Parry, "Parry", false);
-            Scribe_Values.Look(ref ParrySide, "ParrySide", 2);
-            Scribe_Values.Look(ref ParryFront, "ParryFront", 2);
+            Scribe_Values.Look(ref ParrySide, "ParrySide", 1.5f);
+            Scribe_Values.Look(ref ParryFront, "ParryFront", 1.5f);
 
             Scribe_Values.Look(ref BulletsWorker, "BulletsWorker", false);
             Scribe_Values.Look(ref SPLimit, "SPLimit", 10f);
@@ -191,6 +214,13 @@ namespace VCR
             Scribe_Values.Look(ref AcidHeatPatch, "AcidHeatPatch", false);
             Scribe_Values.Look(ref ThumpBluntPatch, "ThumpBluntPatch", false);
             Scribe_Values.Look(ref GlassesHelmetPatch, "GlassesHelmetPatch", false);
+            Scribe_Values.Look(ref NoseMouthPatch, "NoseMouthPatch", false);
+            Scribe_Values.Look(ref MaskPatch, "MaskPatch", false);
+            Scribe_Values.Look(ref HeadsetPatch, "HeadsetPatch", false);
+            Scribe_Values.Look(ref ArrayHeadsetPatch, "ArrayHeadsetPatch", false);
+            Scribe_Values.Look(ref ApparelTweaks, "ApparelTweaks", false);
+
+
         }
         public enum Tabs
         {
@@ -351,6 +381,16 @@ namespace VCR
             listingStandard.CheckboxLabeled("VCR.ThumpBluntPatch".Translate(), ref ThumpBluntPatch, "VCR.ThumpBluntTooltip".Translate());
             listingStandard.Gap();
             listingStandard.CheckboxLabeled("VCR.GlassesHelmetPatch".Translate(), ref GlassesHelmetPatch, "VCR.GlassesHelmetTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.NoseMouthPatch".Translate(), ref NoseMouthPatch, "VCR.NoseMouthTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.MaskPatch".Translate(), ref MaskPatch, "VCR.MaskTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.HeadsetPatch".Translate(), ref HeadsetPatch, "VCR.HeadsetTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.ArrayHeadsetPatch".Translate(), ref ArrayHeadsetPatch, "VCR.ArrayHeadsetTooltip".Translate());
+            listingStandard.Gap();
+            listingStandard.CheckboxLabeled("VCR.ApparelTweaks".Translate(), ref ApparelTweaks, "VCR.ApparelTweaksTooltip".Translate());
             listingStandard.End();
         }
     }

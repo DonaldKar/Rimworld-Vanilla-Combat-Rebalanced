@@ -13,7 +13,7 @@
 	<!--acid damage to heat-->
 	<Operation Class="PatchOperationFindMod">
 	  <mods>
-		<li>Ludeon.Rimworld.Biotech</li>
+		<li>Biotech</li>
 	  </mods>
 	  <match Class="VCR.PatchOperationXmlSetting">
 		<setting>AcidHeatPatch</setting>
@@ -24,6 +24,221 @@
 			</value>
 		</match>
 	  </match>
+	</Operation>
+	
+	<!--Headset Equipment to eyecover-->
+	<!--integrator-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>HeadsetPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Apparel_IntegratorHeadset"]/apparel</xpath>
+			<value>
+				<layers Inherit="False">
+					<li>EyeCover</li>
+				</layers>
+				<forceRenderUnderHair>false</forceRenderUnderHair>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--airwire-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>HeadsetPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_AirwireHeadset"]/apparel/layers</xpath>
+			<value>
+				<layers Inherit="False">
+					<li>EyeCover</li>
+				</layers>
+				<forceRenderUnderHair>false</forceRenderUnderHair>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--gunlink-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Royalty</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>HeadsetPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Apparel_Gunlink"]/apparel</xpath>
+			<value>
+				<layers Inherit="False">
+					<li>EyeCover</li>
+				</layers>
+				<forceRenderUnderHair>false</forceRenderUnderHair>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--Masks to eyes and mouth groups-->
+	<!--cloth mask-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Apparel_ClothMask"]/apparel</xpath>
+			<value>
+				<forceRenderUnderHair>true</forceRenderUnderHair>
+				<hatRenderedAboveBody>false</hatRenderedAboveBody>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--gas mask-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_GasMask"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>Eyes</li>
+					<li>Mouth</li>
+				</bodyPartGroups>
+				<forceRenderUnderHair>true</forceRenderUnderHair>
+				<coversHeadMiddle>true</coversHeadMiddle>
+				<hatRenderedAboveBody>false</hatRenderedAboveBody>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--visage mask-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_VisageMask"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>Eyes</li>
+					<li>Mouth</li>
+				</bodyPartGroups>
+				<forceRenderUnderHair>true</forceRenderUnderHair>
+				<coversHeadMiddle>true</coversHeadMiddle>
+				<hatRenderedAboveBody>false</hatRenderedAboveBody>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--war mask-->
+	<Operation  Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_WarMask"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>UpperHead</li>
+					<li>Mouth</li>
+				</bodyPartGroups>
+				<coversHeadMiddle>true</coversHeadMiddle>
+				<hatRenderedAboveBody>false</hatRenderedAboveBody>
+			</value>
+		</match>
+	</Operation>
+	<!--war veil-->
+	<Operation  Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_WarVeil"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>Mouth</li>
+				</bodyPartGroups>
+				<forceRenderUnderHair>true</forceRenderUnderHair>
+				<coversHeadMiddle>true</coversHeadMiddle>
+				<hatRenderedAboveBody>false</hatRenderedAboveBody>
+			</value>
+		</match>
+	</Operation>
+	<!--BroadWrap-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_Broadwrap"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>UpperHead</li>
+					<li>Neck</li>
+					<li>Shoulders</li>
+				</bodyPartGroups>
+				<hatRenderedAboveBody>true</hatRenderedAboveBody>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	
+	<!--array headset to eyes-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>ArrayHeadsetPatch</setting>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[defName="Apparel_ArrayHeadset"]/apparel/bodyPartGroups</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>Eyes</li>
+				</bodyPartGroups>
+				<forceRenderUnderHair>false</forceRenderUnderHair>
+				<coversHeadMiddle>true</coversHeadMiddle>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--mechcommander to upper head-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Biotech</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>ArrayHeadsetPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechCommander"]/apparel</xpath>
+			<value>
+				<bodyPartGroups Inherit="False">
+					<li>UpperHead</li>
+				</bodyPartGroups>
+			</value>
+		</match>
+	  </match>
+	</Operation>
+	<!--Nose to Mouth Group-->
+	<Operation Class="VCR.PatchOperationXmlSetting">
+		<setting>NoseMouthPatch</setting>
+		<match Class="PatchOperationConditional">
+			<xpath>Defs/BodyDef//li[(def="Nose" or def= "SmellSensor")]/groups</xpath>
+			<match Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef//li[(def="Nose" or def= "SmellSensor")]/groups</xpath>
+				<value>
+					<li>Mouth</li>
+				</value>
+			</match>
+		</match>
 	</Operation>
 	<!--gloves and boots patcher-->
 	<Operation Class="VCR.PatchOperationXmlSetting">

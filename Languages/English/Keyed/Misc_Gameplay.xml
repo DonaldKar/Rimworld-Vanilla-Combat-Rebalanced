@@ -37,9 +37,9 @@
 	<VCR.Parry>Enable Parry</VCR.Parry>
 	<VCR.Parrytooltip>Pawns can parry a melee attack if they have a weapon equipped based on the melee hit chance of the attacker and defender</VCR.Parrytooltip>
 	<VCR.ParryFront>Front Defence: {0}</VCR.ParryFront>
-	<VCR.ParryFrontTooltip>The effectiveness that a pawn can parry an attack coming from the front.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 2</VCR.ParryFrontTooltip>
+	<VCR.ParryFrontTooltip>The effectiveness that a pawn can parry an attack coming from the front.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1.5</VCR.ParryFrontTooltip>
 	<VCR.ParrySide>Side Defence: {0}</VCR.ParrySide>
-	<VCR.ParrySideTooltip>The effectiveness that a pawn can parry an attack coming from the side.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 2</VCR.ParrySideTooltip>
+	<VCR.ParrySideTooltip>The effectiveness that a pawn can parry an attack coming from the side.\n\nThe higher the number, the more likely to block, this is NOT a linear change.\n\nDefault: 1.5</VCR.ParrySideTooltip>
 	
 	<VCR.DamageWorkerTab>Damage Workers</VCR.DamageWorkerTab>
 	<VCR.BulletsWorker>Custom Bullet Damage Worker</VCR.BulletsWorker>
@@ -63,7 +63,16 @@
 	<VCR.ThumpBluntTooltip>Thump damage's armor type is changed from sharp to blunt</VCR.ThumpBluntTooltip>
 	<VCR.GlassesHelmetPatch>Glasses are not Helmets</VCR.GlassesHelmetPatch>
 	<VCR.GlassesHelmetTooltip>Changes eye protection to only cover the eyes instead of including the skull or brain.\n\nAllows for wear of a helmet covering the upper head and separate glasses/goggles in the same layer.</VCR.GlassesHelmetTooltip>
-	
+	<VCR.NoseMouthPatch>Mouth Covers Nose</VCR.NoseMouthPatch>
+	<VCR.NoseMouthTooltip>The nose bodypart is included in the mouth bodypart group.\n\nIn Vanilla, the nose is not covered by the mouth even though it is supposed to based on the text of the cloth mask from biotech.</VCR.NoseMouthTooltip>
+	<VCR.MaskPatch>Proper Mask and Face Coverage</VCR.MaskPatch>
+	<VCR.MaskTooltip>Changes Several Vanilla and DLC items to have coverage that is closer to what they visually or thematically cover.\n\nVisage Mask and Gas Mask now cover the eyes and mouth instead of full head.\nBroadwrap covers shoulders, neck, and upper head instead of shoulders, neck, and full head.(eyes and mouth are no longer covered)\nWar Veil covers mouth instead of full head.\nWar Mask covers upper head and mouth instead of full head. (eyes are no longer covered)</VCR.MaskTooltip>
+	<VCR.HeadsetPatch>Headsets are not Helmets</VCR.HeadsetPatch>
+	<VCR.HeadsetTooltip>Moves the gunlink, airwire headset, and integrator headsets from the headgear layer to the eyecover layer\n\nAllows for wearing a headset along with a helmet.</VCR.HeadsetTooltip>
+	<VCR.ArrayHeadsetPatch>Array Headset is Glasses</VCR.ArrayHeadsetPatch>
+	<VCR.ArrayHeadsetTooltip>Changes the bodypart group of the array headset from upper head to eyes only and the MechCommander helmet from full head to upper head only.\n\nAllows for wear of the array headset with an upper head covering helmet like the patched mechcommander helmet or flak helmet.</VCR.ArrayHeadsetTooltip>
+	<VCR.ApparelTweaks>Enable improved headgear layering (Does not need restart)</VCR.ApparelTweaks>
+	<VCR.ApparelTweaksTooltip>Slightly Tweaks vanilla's headgear layering rules to allow for some headgears to render in front of the face, but under other hats or hair.\n\nFor modders that want their apparel to render in front of the pawn's face, but under their hair, enable the tags "hatRenderedFrontOfFace" and "forceRenderUnderHair"\nTo hide the hair but render underneath any face apparel, enable the tag "hatRenderedAboveBody" and disable "hatRenderedFrontOfFace" on your apparel.</VCR.ApparelTweaksTooltip>
 	
 	<VCR.AdjWeapon>Weapon w/ Skill</VCR.AdjWeapon>
 	<VCR.AdjWeather>Weather w/ Skill</VCR.AdjWeather>
