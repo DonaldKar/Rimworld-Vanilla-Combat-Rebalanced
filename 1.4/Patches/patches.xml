@@ -82,6 +82,21 @@
 	  </match>
 	</Operation>
 	<!--Masks to eyes and mouth groups-->
+	<!--Blindfold-->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Apparel_Blindfold"]/apparel</xpath>
+			<value>
+				<hatRenderedAboveBody>true</hatRenderedAboveBody>
+			</value>
+		</match>
+	  </match>
+	</Operation>
 	<!--cloth mask-->
 	<Operation Class="PatchOperationFindMod">
 	  <mods>
