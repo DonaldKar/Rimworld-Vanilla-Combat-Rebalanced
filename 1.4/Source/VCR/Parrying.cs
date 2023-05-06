@@ -48,7 +48,7 @@ namespace VCR
             ideologyOffset(ref c, caster);
             float t = StatDefOf.MeleeHitChance.Worker.GetValue(StatRequest.For(target));//target gets chance to block each hit
             ideologyOffset(ref t, target);
-            return Mathf.Pow(t, (1 / d) / (1 - Mathf.Min(c,0.999f)));//chance of parry, higher d means higher hit chance (root of <1), lower d means lower chance (power <1), NOT LINEAR
+            return Mathf.Pow(Mathf.Min(t, 0.999f), (1 / d) / (1 - Mathf.Min(c,0.999f)));//chance of parry, higher d means higher hit chance (root of <1), lower d means lower chance (power <1), NOT LINEAR
         }
         public static void ideologyOffset(ref float num, Pawn pawn)
         {
@@ -125,7 +125,7 @@ namespace VCR
             ideologyOffset(ref c, caster);
             float t = StatDefOf.MeleeHitChance.Worker.GetValue(StatRequest.For(target));//target gets chance to block each hit
             ideologyOffset(ref t, target);
-            if (!Rand.Chance(Mathf.Pow(t, (1 / d) / (1 - c))))//chance of parry, higher d means higher hit chance (root of <1), lower d means lower chance (power <1), NOT LINEAR
+            if (!Rand.Chance(Mathf.Pow(Mathf.Min(t, 0.999f), (1 / d) / (1 - Mathf.Min(c, 0.999f)))))//chance of parry, higher d means higher hit chance (root of <1), lower d means lower chance (power <1), NOT LINEAR
             {
                 return false;
             }

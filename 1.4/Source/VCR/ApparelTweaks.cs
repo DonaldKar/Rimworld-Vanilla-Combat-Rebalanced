@@ -67,4 +67,29 @@ namespace VCR
             return f;
         }
     }
+
+    [HarmonyPatch(typeof(PawnApparelGenerator), "IsHeadgear")]
+    public static class PawnApparelGenerator_IsHeadgear_Patch
+    {
+        public static void Postfix(ref bool __result, ThingDef td)
+        {
+            //        if (!__result)
+            //        {
+            //            if (td.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Eyes) || td.apparel.bodyPartGroups.Contains(BodyPartGroupHeadDefOf.Mouth))
+            //            {
+            //                __result = true;
+            //            }
+            //        }
+        }
+    }
+
+    [DefOf]
+    public static class BodyPartGroupHeadDefOf
+    {
+        public static BodyPartGroupDef Mouth;
+        static BodyPartGroupHeadDefOf()
+        {
+            DefOfHelper.EnsureInitializedInCtor(typeof(BodyPartGroupHeadDefOf));
+        }
+    }
 }

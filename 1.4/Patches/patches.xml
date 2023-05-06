@@ -260,7 +260,7 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms')])]/../layers/li[contains(.,'OnSkin')]</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms') or contains(.,'Shoulders') or contains(.,'Torso')])]/../layers/li[contains(.,'OnSkin')]</xpath>
 			<value>
 				<li>Overhead</li>
 			</value>
@@ -270,7 +270,7 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Hands') or contains(.,'LeftHand') or contains(.,'RightHand') or contains(.,'MiddleFingers')] and not(./li[contains(.,'Arms') or contains(.,'Shoulders') or contains(.,'Torso')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
 			<value>
 				<li>EyeCover</li>
 			</value>
@@ -280,7 +280,7 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers/li[contains(.,'OnSkin')]</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')or contains(.,'Torso')])]/../layers/li[contains(.,'OnSkin')]</xpath>
 			<value>
 				<li>Overhead</li>
 			</value>
@@ -290,7 +290,7 @@
 		<success>Always</success>
 		<setting>HandFeetPatch</setting>
 		<match Class="PatchOperationReplace">
-			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
+			<xpath>Defs/ThingDef/apparel[not(wornGraphicPath)]/bodyPartGroups[./li[contains(.,'Feet')] and not(./li[contains(.,'Legs') or contains(.,'Torso')])]/../layers/li[contains(.,'Middle')or contains(.,'Shell')]</xpath>
 			<value>
 				<li>EyeCover</li>
 			</value>
