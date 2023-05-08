@@ -35,19 +35,19 @@ namespace VCR
 			{
 				if (DarknessCombatUtility.IsOutdoorsAndLit(target.Thing))// Ideology Offset (outdoors lit):
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.OutdoorsLit".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceOutdoorsLitOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.OutdoorsLit".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceOutdoorsLitOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsOutdoorsAndDark(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.OutdoorsDark".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceOutdoorsDarkOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.OutdoorsDark".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceOutdoorsDarkOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsIndoorsAndDark(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.IndoorsDark".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceIndoorsDarkOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.IndoorsDark".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceIndoorsDarkOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsIndoorsAndLit(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.IndoorsLit".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceIndoorsLitOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.IndoorsLit".Translate(CasterPawn.GetStatValue(StatDefOf.MeleeHitChanceIndoorsLitOffset).ToStringPercent()));
 				}
 			}
 			return;
@@ -76,19 +76,19 @@ namespace VCR
 			{
 				if (DarknessCombatUtility.IsOutdoorsAndLit(target.Thing))//ideology offset
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.OutdoorsLit".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsLitOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.OutdoorsLit".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsLitOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsOutdoorsAndDark(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.OutdoorsDark".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.OutdoorsDark".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsIndoorsAndDark(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.IndoorsDark".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.IndoorsDark".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
 				}
 				else if (DarknessCombatUtility.IsIndoorsAndLit(target.Thing))
 				{
-					stringBuilder.AppendLine("      " + "VCR.MeleeOffset" + "VCR.IndoorsLit".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
+					stringBuilder.AppendLine("      " + "VCR.MeleeOffset".Translate() + "VCR.IndoorsLit".Translate(pawn.GetStatValue(StatDefOf.MeleeDodgeChanceOutdoorsDarkOffset).ToStringPercent()));
 				}
 			}
 			return;
