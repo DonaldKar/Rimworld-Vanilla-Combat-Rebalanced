@@ -73,13 +73,13 @@ namespace VCR
     {
         public static void Postfix(ref bool __result, ThingDef td)
         {
-            //        if (!__result)
-            //        {
-            //            if (td.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Eyes) || td.apparel.bodyPartGroups.Contains(BodyPartGroupHeadDefOf.Mouth))
-            //            {
-            //                __result = true;
-            //            }
-            //        }
+            if (!__result)
+            {
+                if (td.apparel.bodyPartGroups.Contains(BodyPartGroupDefOf.Eyes) || td.apparel.bodyPartGroups.Contains(BodyPartGroupHeadDefOf.Mouth))
+                {
+                    __result = true;
+                }
+            }
         }
     }
 
