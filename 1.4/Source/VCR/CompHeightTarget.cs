@@ -166,14 +166,14 @@ namespace VCR
             if (instigator is Pawn pawn)
             {
                 // Explosive
-                if (pawn.CurrentEffectiveVerb.verbProps.CausesExplosion)
+                if (pawn.CurrentEffectiveVerb?.verbProps.CausesExplosion ?? true)
                     return false;
             }
 
             if (instigator is Building_Turret turret)
             {
                 // Explosive
-                if (turret.CurrentEffectiveVerb.verbProps.CausesExplosion)
+                if (turret.CurrentEffectiveVerb?.verbProps.CausesExplosion ?? true)
                     return false;
             }
 
