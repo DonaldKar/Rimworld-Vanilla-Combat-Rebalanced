@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<BodyPartGroupDef>
+	<defName>Right</defName>
+	<label>right side</label>
+	<labelShort>right</labelShort>
+</BodyPartGroupDef>
+<BodyPartGroupDef>
+	<defName>Left</defName>
+	<label>left side</label>
+	<labelShort>left</labelShort>
+</BodyPartGroupDef>
+<BodyPartGroupDef>
+	<defName>Center</defName>
+	<label>center target</label>
+	<labelShort>center</labelShort>
+</BodyPartGroupDef>
+	
+</Defs>

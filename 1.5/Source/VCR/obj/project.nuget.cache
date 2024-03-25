@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "96wnuJ32hWv8uByLanzeb2qZabSfoiVS2ZuB5p7cO504uPEHtS2vGKeC/ORNEoY/16aUHu55j6v5TP9XhGUuww==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\karasd3\\Documents\\GitHub\\Rimworld-Vanilla-Combat-Reloaded\\1.4\\Source\\VCR\\VCR.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\karasd3\\.nuget\\packages\\krafs.rimworld.ref\\1.5.4045-beta\\krafs.rimworld.ref.1.5.4045-beta.nupkg.sha512",
+    "C:\\Users\\karasd3\\.nuget\\packages\\lib.harmony\\2.3.2\\lib.harmony.2.3.2.nupkg.sha512"
+  ],
+  "logs": []
+}
