@@ -40,7 +40,6 @@
 				<layers Inherit="False">
 					<li>EyeCover</li>
 				</layers>
-				<forceRenderUnderHair>false</forceRenderUnderHair>
 			</value>
 		</match>
 	  </match>
@@ -58,7 +57,6 @@
 				<layers Inherit="False">
 					<li>EyeCover</li>
 				</layers>
-				<forceRenderUnderHair>false</forceRenderUnderHair>
 			</value>
 		</match>
 	  </match>
@@ -76,43 +74,11 @@
 				<layers Inherit="False">
 					<li>EyeCover</li>
 				</layers>
-				<forceRenderUnderHair>false</forceRenderUnderHair>
 			</value>
 		</match>
 	  </match>
 	</Operation>
 	<!--Masks to eyes and mouth groups-->
-	<!--Blindfold-->
-	<Operation Class="PatchOperationFindMod">
-	  <mods>
-		<li>Ideology</li>
-	  </mods>
-	  <match Class="VCR.PatchOperationXmlSetting">
-		<setting>MaskPatch</setting>
-		<match Class="PatchOperationAdd">
-			<xpath>Defs/ThingDef[defName="Apparel_Blindfold"]/apparel</xpath>
-			<value>
-				<hatRenderedAboveBody>true</hatRenderedAboveBody>
-			</value>
-		</match>
-	  </match>
-	</Operation>
-	<!--cloth mask-->
-	<Operation Class="PatchOperationFindMod">
-	  <mods>
-		<li>Biotech</li>
-	  </mods>
-	  <match Class="VCR.PatchOperationXmlSetting">
-		<setting>MaskPatch</setting>
-		<match Class="PatchOperationAdd">
-			<xpath>Defs/ThingDef[defName="Apparel_ClothMask"]/apparel</xpath>
-			<value>
-				<forceRenderUnderHair>true</forceRenderUnderHair>
-				<hatRenderedAboveBody>false</hatRenderedAboveBody>
-			</value>
-		</match>
-	  </match>
-	</Operation>
 	<!--gas mask-->
 	<Operation Class="PatchOperationFindMod">
 	  <mods>
@@ -127,9 +93,6 @@
 					<li>Eyes</li>
 					<li>Mouth</li>
 				</bodyPartGroups>
-				<forceRenderUnderHair>true</forceRenderUnderHair>
-				<coversHeadMiddle>true</coversHeadMiddle>
-				<hatRenderedAboveBody>false</hatRenderedAboveBody>
 			</value>
 		</match>
 	  </match>
@@ -148,9 +111,6 @@
 					<li>Eyes</li>
 					<li>Mouth</li>
 				</bodyPartGroups>
-				<forceRenderUnderHair>true</forceRenderUnderHair>
-				<coversHeadMiddle>true</coversHeadMiddle>
-				<hatRenderedAboveBody>false</hatRenderedAboveBody>
 			</value>
 		</match>
 	  </match>
@@ -180,8 +140,6 @@
 					<li>UpperHead</li>
 					<li>Mouth</li>
 				</bodyPartGroups>
-				<coversHeadMiddle>true</coversHeadMiddle>
-				<hatRenderedAboveBody>false</hatRenderedAboveBody>
 			</value>
 		</match>
 	</Operation>
@@ -209,9 +167,6 @@
 				<bodyPartGroups Inherit="False">
 					<li>Mouth</li>
 				</bodyPartGroups>
-				<forceRenderUnderHair>true</forceRenderUnderHair>
-				<coversHeadMiddle>true</coversHeadMiddle>
-				<hatRenderedAboveBody>false</hatRenderedAboveBody>
 			</value>
 		</match>
 	</Operation>
@@ -244,7 +199,6 @@
 					<li>Neck</li>
 					<li>Shoulders</li>
 				</bodyPartGroups>
-				<hatRenderedAboveBody>true</hatRenderedAboveBody>
 			</value>
 		</match>
 	  </match>
@@ -263,8 +217,6 @@
 				<bodyPartGroups Inherit="False">
 					<li>Eyes</li>
 				</bodyPartGroups>
-				<forceRenderUnderHair>false</forceRenderUnderHair>
-				<coversHeadMiddle>true</coversHeadMiddle>
 			</value>
 		</match>
 	  </match>

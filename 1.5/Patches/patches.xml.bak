@@ -155,6 +155,21 @@
 		</match>
 	  </match>
 	</Operation>
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/PreceptDef/roleApparelRequirements/li/requirement[requiredDefs/li="Apparel_VisageMask"]/bodyPartGroupsMatchAny</xpath>
+			<value>
+				<li>Eyes</li>
+				<li>Mouth</li>
+			</value>
+		</match>
+	  </match>
+	</Operation>
 	<!--war mask-->
 	<Operation  Class="VCR.PatchOperationXmlSetting">
 		<setting>MaskPatch</setting>
@@ -170,6 +185,21 @@
 			</value>
 		</match>
 	</Operation>
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/PreceptDef/roleApparelRequirements/li/requirement[requiredDefs/li="Apparel_WarMask"]/bodyPartGroupsMatchAny</xpath>
+			<value>
+				<li>UpperHead</li>
+				<li>Mouth</li>
+			</value>
+		</match>
+	  </match>
+	</Operation>
 	<!--war veil-->
 	<Operation  Class="VCR.PatchOperationXmlSetting">
 		<setting>MaskPatch</setting>
@@ -184,6 +214,20 @@
 				<hatRenderedAboveBody>false</hatRenderedAboveBody>
 			</value>
 		</match>
+	</Operation>
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Ideology</li>
+	  </mods>
+	  <match Class="VCR.PatchOperationXmlSetting">
+		<setting>MaskPatch</setting>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/PreceptDef/roleApparelRequirements/li/requirement[requiredDefs/li="Apparel_WarVeil"]/bodyPartGroupsMatchAny</xpath>
+			<value>
+				<li>Mouth</li>
+			</value>
+		</match>
+	  </match>
 	</Operation>
 	<!--BroadWrap-->
 	<Operation Class="PatchOperationFindMod">

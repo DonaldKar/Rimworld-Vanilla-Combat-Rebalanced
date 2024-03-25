@@ -18,3 +18,8 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimworld-Vanilla-Com
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimworld-Vanilla-Combat-Reloaded\1.4\Source\VCR\obj\Debug\VanillaCombatReloaded.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimworld-Vanilla-Combat-Reloaded\1.4\Assemblies\VanillaCombatReloaded.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Rimworld-Vanilla-Combat-Reloaded\1.4\Source\VCR\obj\Debug\VCR.csproj.CopyComplete
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.5\Assemblies\VanillaCombatReloaded.dll
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.5\Source\VCR\obj\Debug\VCR.csproj.AssemblyReference.cache
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.5\Source\VCR\obj\Debug\VCR.csproj.CoreCompileInputs.cache
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.5\Source\VCR\obj\Debug\VCR.csproj.CopyComplete
+C:\Users\karasd3\Documents\GitHub\Rimworld-Vanilla-Combat-Reloaded\1.5\Source\VCR\obj\Debug\VanillaCombatReloaded.dll
